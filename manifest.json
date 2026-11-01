@@ -1,5 +1,6 @@
 
 {
+  "id": "./",
   "name": "Solo Leveling",
   "short_name": "Solo Leveling",
   "description": "Your personal RPG fitness system.",
@@ -9,5 +10,18 @@
   "orientation": "portrait",
   "background_color": "#080d0b",
   "theme_color": "#080d0b",
-  "icons": []
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }
