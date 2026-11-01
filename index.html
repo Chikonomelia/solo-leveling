@@ -194,5 +194,16 @@ function saveGoals(){data.goals={push:document.getElementById('pushGoal').value,
 function exportData(){let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='solo-leveling-progress.json';a.click();URL.revokeObjectURL(a.href)}
 checkDay();document.getElementById('pushGoal').value=data.goals.push;document.getElementById('pullGoal').value=data.goals.pull;render();
 </script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("Solo Leveling System Ready"))
+      .catch(error => console.error("Service Worker Error:", error));
+  });
+}
+</script>
+
 </body>
 </html>
