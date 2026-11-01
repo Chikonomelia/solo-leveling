@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -202,6 +201,96 @@ if ("serviceWorker" in navigator) {
       .then(() => console.log("Solo Leveling System Ready"))
       .catch(error => console.error("Service Worker Error:", error));
   });
+}
+</script>
+
+<style>
+.awaken-btn {
+  position:fixed;bottom:22px;right:18px;z-index:50;
+  background:#a3ff68;color:#071007;border:0;
+  padding:15px 20px;border-radius:30px;
+  font-weight:900;box-shadow:0 0 22px #a3ff6866;
+}
+.awaken-overlay {
+  display:none;position:fixed;inset:0;z-index:100;
+  background:#050907ed;align-items:center;
+  justify-content:center;padding:20px;
+}
+.awaken-box {
+  width:100%;max-width:430px;background:#101a16;
+  border:1px solid #a3ff68;border-radius:20px;
+  padding:24px;box-shadow:0 0 35px #a3ff6833;
+}
+.awaken-box h2 {color:#a3ff68;letter-spacing:3px}
+.awaken-box input {
+  width:100%;padding:13px;margin:10px 0 18px;
+  background:#080d0b;border:1px solid #456b39;
+  border-radius:9px;color:white;font-size:16px;
+}
+.awaken-box button {
+  width:100%;padding:14px;margin-top:10px;
+}
+.awaken-close {background:#26372d;color:white}
+</style>
+
+<button class="awaken-btn" onclick="openAwakening()">
+  ⚡ AWAKENING
+</button>
+
+<div class="awaken-overlay" id="awakening">
+  <div class="awaken-box">
+    <div class="eyebrow">SYSTEM INITIALIZATION</div>
+    <h2>SYSTEM AWAKENING</h2>
+    <p class="sub">Hunter, identify yourself.</p>
+
+    <label class="sub">Hunter Name</label>
+    <input id="hunterName" maxlength="24"
+      placeholder="Enter your hunter name">
+
+    <label class="sub">Your Main Goal</label>
+    <select id="hunterGoal" style="width:100%;padding:13px;background:#080d0b;color:white;border:1px solid #456b39;border-radius:9px">
+      <option>Build Strength</option>
+      <option>Master Calisthenics</option>
+      <option>Improve Stamina</option>
+      <option>Build Healthy Habits</option>
+    </select>
+
+    <p class="note">Your journey begins with consistency, not perfection.</p>
+
+    <button onclick="saveAwakening()">CONFIRM AWAKENING</button>
+    <button class="awaken-close" onclick="closeAwakening()">CLOSE</button>
+    <p class="tag" id="awakeningMessage"></p>
+  </div>
+</div>
+
+<script>
+function openAwakening() {
+  const saved = JSON.parse(localStorage.getItem("hunterProfile") || "{}");
+  document.getElementById("hunterName").value = saved.name || "";
+  document.getElementById("hunterGoal").value = saved.goal || "Build Strength";
+  document.getElementById("awakening").style.display = "flex";
+}
+
+function closeAwakening() {
+  document.getElementById("awakening").style.display = "none";
+}
+
+function saveAwakening() {
+  const name = document.getElementById("hunterName").value.trim();
+  const goal = document.getElementById("hunterGoal").value;
+
+  if (!name) {
+    document.getElementById("awakeningMessage").textContent =
+      "Please enter your hunter name.";
+    return;
+  }
+
+  localStorage.setItem("hunterProfile", JSON.stringify({name, goal}));
+
+  document.getElementById("awakeningMessage").textContent =
+    "AWAKENING COMPLETE — Welcome, " + name + "!";
+
+  setTimeout(closeAwakening, 1500);
 }
 </script>
 
