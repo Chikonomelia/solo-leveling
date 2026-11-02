@@ -5,248 +5,81 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080d0b">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
 <title>Solo Leveling System</title>
 
 <style>
 :root {
   --bg:#080d0b;
-  --panel:#101a16;
-  --panel2:#0b130e;
+  --panel:#111c15;
   --green:#a3ff68;
-  --muted:#819187;
-  --line:#26372d;
+  --muted:#89968d;
+  --line:#293b2e;
   --gold:#ffd76a;
 }
-* {box-sizing:border-box}
-body {
-  margin:0;
-  min-height:100vh;
-  color:#eff8f0;
-  background:radial-gradient(ellipse at top,#17291e,#080d0b 65%);
-  font-family:Arial,sans-serif;
+*{box-sizing:border-box}
+body{
+  margin:0;background:radial-gradient(ellipse at top,#193021,#080d0b 70%);
+  color:#eff8f0;font-family:Arial,sans-serif;min-height:100vh
 }
-header {
-  padding:22px 18px 14px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.logo {
-  color:var(--green);
-  font-size:18px;
-  font-weight:900;
-  letter-spacing:2px;
-}
-.status {
-  border:1px solid #456b39;
-  color:var(--green);
-  padding:7px 10px;
-  border-radius:20px;
-  font-size:10px;
-}
-main {
-  max-width:760px;
-  margin:auto;
-  padding:8px 16px 45px;
-}
-.eyebrow {
-  color:var(--green);
-  font-size:10px;
-  letter-spacing:3px;
-  font-weight:bold;
-}
-h1 {font-size:29px;margin:10px 0}
-h2 {font-size:17px;margin:0 0 13px}
-.sub {color:var(--muted);font-size:13px;line-height:1.5}
-.note {color:var(--muted);font-size:11px;line-height:1.6}
-.card {
-  background:linear-gradient(145deg,#142019,#0e1511);
-  border:1px solid var(--line);
-  border-radius:17px;
-  padding:18px;
-  margin:14px 0;
-  box-shadow:0 8px 28px #0004;
-}
-.row {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-}
-.rank {
-  color:var(--green);
-  font-size:12px;
-  font-weight:bold;
-  letter-spacing:2px;
-}
-.level {font-size:35px;font-weight:900;margin:9px 0}
-.xp {font-size:12px;color:var(--muted)}
-.bar {
-  height:9px;
-  background:#29362e;
-  border-radius:20px;
-  margin-top:12px;
-  overflow:hidden;
-}
-.fill {
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,#61c83e,var(--green));
-  border-radius:20px;
-  transition:width .3s;
-}
-.statgrid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:16px;
-}
-.stat {
-  background:var(--panel2);
-  padding:12px 5px;
-  border-radius:12px;
-  text-align:center;
-}
-.stat strong {
-  display:block;
-  color:var(--green);
-  font-size:19px;
-}
-.stat small {font-size:9px;color:var(--muted)}
-nav {
-  display:flex;
-  gap:7px;
-  overflow-x:auto;
-  padding:12px 0 15px;
-}
-button {
-  background:var(--green);
-  color:#0b140b;
-  border:0;
-  border-radius:10px;
-  padding:12px 14px;
-  font-weight:bold;
-  cursor:pointer;
-}
-button.secondary {
-  background:#1b2920;
-  color:var(--green);
-  border:1px solid #3d5943;
-}
-button:disabled {opacity:.45}
-nav button {flex:1;min-width:75px;padding:11px 7px;font-size:11px}
-nav button.selected {
-  background:var(--green);
-  color:#071007;
-  border:1px solid var(--green);
-}
-.page {display:none}
-.page.active {display:block}
-.quest {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:13px 0;
-  border-bottom:1px solid var(--line);
-}
-.quest:last-child {border:0}
-.quest input {accent-color:var(--green);width:19px;height:19px}
-.quest label {flex:1;font-size:12px;line-height:1.4}
-.reward {color:var(--green);font-size:11px;white-space:nowrap}
-.tag {color:var(--green);font-size:10px}
-.exercise {padding:12px 0;border-bottom:1px solid var(--line)}
-.exercise:last-child {border:0}
-.exercise b {font-size:14px}
-.exercise p {font-size:12px;color:var(--muted);line-height:1.5}
-.page-title {margin-bottom:5px}
-input[type=number],input[type=text],select {
-  background:#0b130e;
-  border:1px solid var(--line);
-  color:white;
-  border-radius:8px;
-  padding:10px;
-}
-input[type=number] {width:85px}
-.toast {
-  position:fixed;
-  left:50%;
-  bottom:22px;
-  transform:translateX(-50%);
-  width:calc(100% - 36px);
-  max-width:420px;
-  background:#17271c;
-  border:1px solid var(--green);
-  color:white;
-  border-radius:12px;
-  padding:14px;
-  text-align:center;
-  z-index:200;
-  display:none;
-  box-shadow:0 0 25px #a3ff6833;
-  font-size:13px;
-}
-.reward-box {
-  border:1px solid #75602b;
-  background:linear-gradient(130deg,#292315,#17170e);
-}
-.reward-box h2 {color:var(--gold)}
-.achievement {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:12px 0;
-  border-bottom:1px solid var(--line);
-}
-.achievement:last-child {border:0}
-.achievement-icon {font-size:23px}
-.achievement small {color:var(--muted);font-size:10px}
-.locked {opacity:.38}
-footer {
-  text-align:center;
-  color:#53635a;
-  font-size:10px;
-  padding:22px;
-}
-.awaken-btn {
-  position:fixed;
-  right:17px;
-  bottom:18px;
-  z-index:50;
-  border-radius:30px;
-  box-shadow:0 0 22px #a3ff6866;
-}
-.overlay {
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:100;
-  background:#050907ed;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-.modal {
-  width:100%;
-  max-width:430px;
-  background:#101a16;
-  border:1px solid var(--green);
-  border-radius:20px;
-  padding:23px;
-}
-.modal h2 {color:var(--green);letter-spacing:2px}
-.modal input,.modal select {
-  width:100%;
-  padding:13px;
-  margin:9px 0 17px;
-}
-.modal button {width:100%;margin-top:9px}
-@media(max-width:380px) {
-  h1 {font-size:25px}
-  .logo {font-size:15px}
-}
+header{padding:22px 18px 12px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;letter-spacing:2px;color:var(--green);font-size:18px}
+.status{border:1px solid #456b39;color:var(--green);padding:8px 11px;border-radius:20px;font-size:10px}
+main{max-width:760px;margin:auto;padding:10px 16px 55px}
+.eyebrow{font-size:10px;letter-spacing:3px;color:var(--green);font-weight:bold}
+h1{font-size:29px;margin:10px 0}
+h2{font-size:17px;margin:0 0 13px}
+.sub{font-size:13px;color:var(--muted);line-height:1.6}
+.note{font-size:11px;color:var(--muted);line-height:1.6}
+.card{background:linear-gradient(145deg,#142019,#0d1510);border:1px solid var(--line);border-radius:17px;padding:18px;margin:14px 0;box-shadow:0 8px 28px #0004}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.rank{color:var(--green);font-size:12px;font-weight:bold;letter-spacing:2px}
+.level{font-size:38px;font-weight:900;margin:12px 0}
+.xp{font-size:12px;color:var(--muted)}
+.bar{height:10px;background:#29372e;border-radius:20px;margin-top:12px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#55c83d,var(--green));border-radius:20px;transition:width .8s ease}
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:17px}
+.stat{background:#09110c;padding:13px 5px;border-radius:13px;text-align:center}
+.stat strong{display:block;color:var(--green);font-size:20px}
+.stat small{font-size:9px;color:var(--muted)}
+nav{display:flex;gap:7px;overflow-x:auto;padding:14px 0}
+button{background:var(--green);color:#071007;border:0;border-radius:10px;padding:12px 14px;font-weight:bold;cursor:pointer}
+button.secondary{background:#1b2920;color:var(--green);border:1px solid #3d5943}
+button:disabled{opacity:.5}
+nav button{flex:1;min-width:70px;padding:12px 6px;font-size:11px}
+nav button.selected{background:var(--green);color:#071007}
+.page{display:none}
+.page.active{display:block}
+.quest{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}
+.quest:last-child{border:0}
+.quest input{width:19px;height:19px;accent-color:var(--green)}
+.quest label{flex:1;font-size:12px;line-height:1.5}
+.reward{color:var(--green);font-size:11px;white-space:nowrap}
+.tag{font-size:10px;color:var(--green)}
+.reward-box{border-color:#75602b;background:linear-gradient(130deg,#292315,#17170e)}
+.reward-box h2{color:var(--gold)}
+.exercise{padding:12px 0;border-bottom:1px solid var(--line)}
+.exercise:last-child{border:0}
+.exercise p{font-size:12px;color:var(--muted);line-height:1.5}
+.achievement{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.achievement:last-child{border:0}
+.achievement small{color:var(--muted);font-size:10px}
+.locked{opacity:.4}
+.notice{border-left:3px solid var(--green);padding:10px 12px;background:#101b13;margin:9px 0;border-radius:0 9px 9px 0;font-size:12px}
+.toast{position:fixed;z-index:200;bottom:22px;left:50%;transform:translateX(-50%);width:calc(100% - 36px);max-width:420px;background:#17271c;border:1px solid var(--green);border-radius:12px;padding:14px;text-align:center;display:none;font-size:13px;box-shadow:0 0 25px #a3ff6833}
+.overlay{display:none;position:fixed;inset:0;z-index:300;background:#020704ed;align-items:center;justify-content:center;padding:20px}
+.modal{width:100%;max-width:430px;text-align:center;background:radial-gradient(ellipse at center,#1c3922,#0a100c 70%);border:1px solid var(--green);border-radius:20px;padding:28px 20px;box-shadow:0 0 45px #76ff4c44;animation:pop .45s ease}
+.modal .big{font-size:55px;margin:12px}
+.modal h1{font-size:34px;color:var(--green);letter-spacing:2px}
+.modal p{color:#c0d0c3;font-size:13px;line-height:1.6}
+.modal button{width:100%;margin-top:14px}
+@keyframes pop{from{opacity:0;transform:scale(.75)}to{opacity:1;transform:scale(1)}}
+@keyframes glow{0%,100%{box-shadow:0 0 8px #a3ff6844}50%{box-shadow:0 0 28px #a3ff68aa}}
+.level-card{animation:glow 2s infinite}
+input[type=number],input[type=text],select{background:#0b130e;border:1px solid var(--line);color:white;border-radius:8px;padding:11px}
+footer{text-align:center;color:#53635a;font-size:10px;padding:25px}
+.awaken{position:fixed;right:17px;bottom:18px;z-index:50;border-radius:30px;box-shadow:0 0 22px #a3ff6866}
+@media(max-width:380px){h1{font-size:25px}.logo{font-size:15px}}
 </style>
 </head>
 
@@ -259,7 +92,7 @@ footer {
 <main>
   <div class="eyebrow">PLAYER STATUS</div>
   <h1 id="welcome">Welcome, Hunter.</h1>
-  <p class="sub" id="welcomeSub">Your journey starts with one quest.</p>
+  <p class="sub" id="welcomeSub">Your journey starts now.</p>
 
   <nav id="navigation">
     <button data-page="home" onclick="showPage('home')">HOME</button>
@@ -268,17 +101,14 @@ footer {
     <button data-page="stats" onclick="showPage('stats')">PROFILE</button>
   </nav>
 
-  <!-- HOME -->
   <section id="home" class="page active">
-    <div class="card">
+    <div class="card level-card">
       <div class="row">
         <span class="rank" id="rank">E-RANK HUNTER</span>
         <span class="tag">PLAYER</span>
       </div>
       <div class="level">LEVEL <span id="level">1</span></div>
-      <div class="xp">
-        <span id="xp">0</span> / 100 XP TO NEXT LEVEL
-      </div>
+      <div class="xp"><span id="xp">0</span> / 100 XP TO NEXT LEVEL</div>
       <div class="bar"><div class="fill" id="xpbar"></div></div>
       <div class="statgrid">
         <div class="stat"><strong id="done">0</strong><small>QUESTS DONE TODAY</small></div>
@@ -288,155 +118,82 @@ footer {
     </div>
 
     <div class="card reward-box">
-      <div class="row">
-        <h2>🎁 Daily Login Reward</h2>
-        <span class="tag">DAILY</span>
-      </div>
-      <p class="note">Return each day to claim your daily system reward.</p>
-      <div class="row">
-        <strong style="color:var(--gold)">+20 XP</strong>
-        <button id="claimButton" onclick="claimReward()">CLAIM REWARD</button>
-      </div>
+      <div class="row"><h2>🎁 Daily Login Reward</h2><span class="tag">DAILY</span></div>
+      <p class="sub">Return each day to claim your system reward.</p>
+      <div class="row"><strong style="color:var(--gold)">+20 XP</strong><button id="claimButton" onclick="claimReward()">CLAIM REWARD</button></div>
       <p class="note" id="rewardStatus"></p>
     </div>
 
     <div class="card">
-      <div class="row">
-        <h2>⚡ Today's Missions</h2>
-        <span class="tag">DAILY</span>
-      </div>
-      <p class="sub">Complete your daily quests to earn XP.</p>
+      <div class="row"><h2>⚡ Today's Missions</h2><span class="tag">DAILY</span></div>
       <div id="homeQuests"></div>
-      <button class="secondary" style="width:100%;margin-top:12px"
-        onclick="showPage('quests')">VIEW ALL QUESTS →</button>
+      <button class="secondary" style="width:100%;margin-top:12px" onclick="showPage('quests')">VIEW ALL QUESTS →</button>
     </div>
 
     <div class="card">
-      <h2>◈ System Notification</h2>
-      <p class="note" id="systemMessage">
-        Welcome to the system. Every small step counts. Progress at your own pace.
-      </p>
+      <h2>◈ System Notifications</h2>
+      <div id="notifications"><div class="notice">Welcome back, Hunter. The system is ready.</div></div>
     </div>
 
     <div class="card">
-      <h2>🏆 Recent Achievements</h2>
+      <h2>🏆 Achievements</h2>
       <div id="homeAchievements"></div>
-      <button class="secondary" style="width:100%;margin-top:12px"
-        onclick="showPage('stats')">VIEW PROFILE →</button>
+      <button class="secondary" style="width:100%;margin-top:10px" onclick="showPage('stats')">VIEW ALL ACHIEVEMENTS →</button>
     </div>
   </section>
 
-  <!-- QUESTS -->
   <section id="quests" class="page">
     <div class="eyebrow">DAILY MISSIONS</div>
-    <h1 class="page-title">Your Quests</h1>
-    <p class="sub">Complete a habit once per day to earn XP.</p>
+    <h1>Your Quests</h1>
+    <p class="sub">Complete your daily habits to earn XP.</p>
     <div class="card"><div id="allQuests"></div></div>
     <button class="secondary" onclick="resetDay()">RESET TODAY'S QUESTS</button>
-    <p class="note">Your total XP is kept when daily quests reset.</p>
+    <p class="note">Resetting daily quests does not remove your earned XP.</p>
   </section>
 
-  <!-- TRAINING -->
   <section id="training" class="page">
     <div class="eyebrow">TRAINING PROTOCOL</div>
-    <h1 class="page-title">Training Ground</h1>
-    <p class="sub">Build consistency. Rest when needed. There is no penalty for taking a rest day.</p>
-
+    <h1>Training Ground</h1>
+    <p class="sub">Build consistency. Rest is part of progress.</p>
     <div class="card">
       <h2>⚔ Day A · Full Body</h2>
-      <div class="exercise">
-        <b>Wall or incline push-ups</b>
-        <p>1–2 sets of 5–8 comfortable repetitions.</p>
-        <span class="tag">UPPER BODY</span>
-      </div>
-      <div class="exercise">
-        <b>Bodyweight squats</b>
-        <p>1–2 sets of 6–10 comfortable repetitions.</p>
-        <span class="tag">LEGS</span>
-      </div>
-      <div class="exercise">
-        <b>Glute bridges</b>
-        <p>1–2 sets of 8–10 repetitions.</p>
-        <span class="tag">HIPS</span>
-      </div>
-      <div class="exercise">
-        <b>Easy walking</b>
-        <p>5–10 minutes at a comfortable pace.</p>
-        <span class="tag">STAMINA</span>
-      </div>
+      <div class="exercise"><b>Wall or incline push-ups</b><p>1–2 sets of 5–8 comfortable repetitions.</p></div>
+      <div class="exercise"><b>Bodyweight squats</b><p>1–2 sets of 6–10 comfortable repetitions.</p></div>
+      <div class="exercise"><b>Glute bridges</b><p>1–2 sets of 8–10 repetitions.</p></div>
+      <div class="exercise"><b>Easy walking</b><p>5–10 minutes at a comfortable pace.</p></div>
     </div>
-
     <div class="card">
-      <h2>🛡 Day B · Pull & Mobility</h2>
-      <div class="exercise">
-        <b>Supported rows</b>
-        <p>1–2 sets of 8 comfortable repetitions.</p>
-      </div>
-      <div class="exercise">
-        <b>Light dumbbell curls</b>
-        <p>1–2 sets of 8 comfortable repetitions, if you have suitable weights.</p>
-      </div>
-      <div class="exercise">
-        <b>Gentle stretching</b>
-        <p>About 5 minutes without forcing any movement.</p>
-      </div>
+      <h2>🛡 Day B · Mobility</h2>
+      <div class="exercise"><b>Supported rows</b><p>1–2 sets of 8 comfortable repetitions.</p></div>
+      <div class="exercise"><b>Light dumbbell curls</b><p>1–2 sets of 8 comfortable repetitions, if suitable weights are available.</p></div>
+      <div class="exercise"><b>Gentle stretching</b><p>About 5 minutes without forcing any movement.</p></div>
     </div>
-
     <div class="card">
       <h2>📅 Weekly Schedule</h2>
-      <p class="note">
-        Monday: A · Tuesday: Easy walk · Wednesday: B ·
-        Thursday: Rest · Friday: A · Saturday: Fun activity · Sunday: Rest
-      </p>
-      <p class="note">
-        Keep effort comfortable and increase gradually. Stop if you feel pain,
-        dizziness or unwell. Aim for 8–10 hours of sleep.
-      </p>
+      <p class="note">Monday: A · Tuesday: Easy walk · Wednesday: B · Thursday: Rest · Friday: A · Saturday: Fun activity · Sunday: Rest.</p>
+      <p class="note">Keep effort comfortable. Stop if you feel pain, dizzy or unwell. Aim for 8–10 hours of sleep.</p>
     </div>
   </section>
 
-  <!-- PROFILE -->
   <section id="stats" class="page">
     <div class="eyebrow">HUNTER PROFILE</div>
-    <h1 class="page-title">My Progress</h1>
-
+    <h1>My Progress</h1>
     <div class="card">
       <div class="row">
-        <div>
-          <div class="tag">HUNTER NAME</div>
-          <h2 id="profileName">Unknown Hunter</h2>
-        </div>
+        <div><div class="tag">HUNTER NAME</div><h2 id="profileName">Unknown Hunter</h2></div>
         <div class="rank" id="profileRank">E-RANK</div>
       </div>
       <p class="note" id="profileGoal">Main goal: Not set</p>
       <div class="statgrid">
         <div class="stat"><strong id="profileLevel">1</strong><small>LEVEL</small></div>
         <div class="stat"><strong id="profileXP">0</strong><small>TOTAL XP</small></div>
-        <div class="stat"><strong id="profileDone">0</strong><small>QUESTS DONE</small></div>
+        <div class="stat"><strong id="profileDone">0</strong><small>ACTIVE DAYS</small></div>
       </div>
     </div>
-
-    <div class="card">
-      <h2>🏆 Achievements</h2>
-      <div id="achievements"></div>
-    </div>
-
-    <div class="card">
-      <h2>Personal Goals</h2>
-      <p class="note">Optional tracking targets. Adjust them whenever you want.</p>
-      <label class="note">Push-ups target</label><br>
-      <input id="pushGoal" type="number" min="0" max="100">
-      <br><br>
-      <label class="note">Pull-ups target</label><br>
-      <input id="pullGoal" type="number" min="0" max="50">
-      <br><br>
-      <button onclick="saveGoals()">SAVE GOALS</button>
-      <p class="note" id="saveMessage"></p>
-    </div>
-
+    <div class="card"><h2>🏆 Achievement Collection</h2><div id="achievements"></div></div>
     <div class="card">
       <h2>System Data</h2>
-      <p class="note">Your progress is stored locally in this browser on this phone.</p>
+      <p class="note">Your progress is stored locally on this phone.</p>
       <button class="secondary" onclick="exportData()">EXPORT PROGRESS</button>
     </div>
   </section>
@@ -444,41 +201,42 @@ footer {
   <footer>SOLO LEVELING SYSTEM · YOUR JOURNEY, YOUR PACE</footer>
 </main>
 
-<button class="awaken-btn" onclick="openAwakening()">⚡ AWAKENING</button>
+<button class="awaken" onclick="openAwakening()">⚡ AWAKENING</button>
+
+<div class="overlay" id="celebration">
+  <div class="modal">
+    <div class="eyebrow" id="celebrationEyebrow">SYSTEM ALERT</div>
+    <div class="big" id="celebrationIcon">⚡</div>
+    <h1 id="celebrationTitle">LEVEL UP!</h1>
+    <p id="celebrationText">Your power has increased.</p>
+    <button onclick="closeCelebration()">CONTINUE</button>
+  </div>
+</div>
 
 <div class="overlay" id="awakening">
   <div class="modal">
     <div class="eyebrow">SYSTEM INITIALIZATION</div>
-    <h2>SYSTEM AWAKENING</h2>
-    <p class="sub">Hunter, identify yourself.</p>
-
-    <label class="sub">Hunter Name</label>
-    <input id="hunterName" type="text" maxlength="24" placeholder="Enter your hunter name">
-
-    <label class="sub">Your Main Goal</label>
-    <select id="hunterGoal">
+    <h1>SYSTEM AWAKENING</h1>
+    <p>Hunter, identify yourself.</p>
+    <input id="hunterName" type="text" maxlength="24" placeholder="Enter hunter name" style="width:100%;margin:10px 0">
+    <select id="hunterGoal" style="width:100%;margin:10px 0">
       <option>Build Strength</option>
       <option>Master Calisthenics</option>
       <option>Improve Stamina</option>
       <option>Build Healthy Habits</option>
     </select>
-
-    <p class="note">Your journey begins with consistency, not perfection.</p>
     <button onclick="saveAwakening()">CONFIRM AWAKENING</button>
     <button class="secondary" onclick="closeAwakening()">CLOSE</button>
-    <p class="tag" id="awakeningMessage"></p>
+    <p id="awakeningMessage"></p>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* DATA: keeps the existing storage keys and progress */
 const today = () => {
   const d = new Date();
-  return d.getFullYear() + "-" +
-    String(d.getMonth()+1).padStart(2,"0") + "-" +
-    String(d.getDate()).padStart(2,"0");
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 };
 
 const quests = [
@@ -491,279 +249,259 @@ const quests = [
 ];
 
 const defaultData = {
-  xp:0,
-  done:[],
-  day:today(),
-  days:[],
-  goals:{push:5,pull:1},
-  lastLoginReward:"",
-  unlocked:[]
+  xp:0,done:[],day:today(),days:[],lastLoginReward:"",
+  unlocked:[],notifications:[]
 };
 
-let savedData = {};
+let data = {};
 try {
-  savedData = JSON.parse(localStorage.getItem("soloSave") || "{}") || {};
-} catch(e) {
-  savedData = {};
-}
+  data = JSON.parse(localStorage.getItem("soloSave") || "{}") || {};
+} catch(e) { data = {}; }
 
-let data = {
+data = {
   ...defaultData,
-  ...savedData,
-  goals:{...defaultData.goals,...(savedData.goals || {})},
-  done:Array.isArray(savedData.done) ? savedData.done : [],
-  days:Array.isArray(savedData.days) ? savedData.days : [],
-  unlocked:Array.isArray(savedData.unlocked) ? savedData.unlocked : []
+  ...data,
+  done:Array.isArray(data.done)?data.done:[],
+  days:Array.isArray(data.days)?data.days:[],
+  unlocked:Array.isArray(data.unlocked)?data.unlocked:[],
+  notifications:Array.isArray(data.notifications)?data.notifications:[]
 };
+if (!Number.isFinite(data.xp) || data.xp < 0) data.xp = 0;
 
 let hunter = {};
 try {
   hunter = JSON.parse(localStorage.getItem("hunterProfile") || "{}") || {};
-} catch(e) {
-  hunter = {};
+} catch(e) { hunter = {}; }
+
+function saveData(){
+  localStorage.setItem("soloSave",JSON.stringify(data));
 }
 
-function saveData() {
-  localStorage.setItem("soloSave",JSON.stringify(data));
+function levelFor(xp){return Math.floor(xp/100)+1}
+function level(){return levelFor(data.xp)}
+
+function rankForLevel(l){
+  if(l>=30)return "S";
+  if(l>=20)return "A";
+  if(l>=12)return "B";
+  if(l>=7)return "C";
+  if(l>=3)return "D";
+  return "E";
+}
+function rankName(){return rankForLevel(level())}
+
+function addNotification(message){
+  data.notifications.unshift({message,date:today()});
+  data.notifications=data.notifications.slice(0,5);
+  saveData();
+  showToast("SYSTEM: "+message);
+}
+
+function showToast(message){
+  const el=document.getElementById("toast");
+  el.textContent=message;
+  el.style.display="block";
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>el.style.display="none",2800);
+}
+
+function celebrate(title,text,icon,eyebrow){
+  document.getElementById("celebrationTitle").textContent=title;
+  document.getElementById("celebrationText").textContent=text;
+  document.getElementById("celebrationIcon").textContent=icon;
+  document.getElementById("celebrationEyebrow").textContent=eyebrow;
+  document.getElementById("celebration").style.display="flex";
+}
+function closeCelebration(){
+  document.getElementById("celebration").style.display="none";
+}
+
+function awardXP(amount,reason){
+  const oldLevel=level();
+  const oldRank=rankName();
+  data.xp+=amount;
+  const newLevel=level();
+  const newRank=rankName();
+
+  if(!data.days.includes(today()))data.days.push(today());
+  addNotification(reason+" · +"+amount+" XP");
+
+  if(newRank!==oldRank){
+    addNotification("HUNTER RANK ADVANCED: "+oldRank+" → "+newRank);
+    celebrate("RANK UP!", "Your hunter rank is now "+newRank+"-RANK. A new stage begins.", "👑", "HUNTER PROMOTION");
+  } else if(newLevel>oldLevel){
+    addNotification("LEVEL UP! You reached Level "+newLevel);
+    celebrate("LEVEL UP!", "You reached Level "+newLevel+". Your journey continues.", "⚡", "SYSTEM LEVEL UP");
+  }
+  checkAchievements();
+  saveData();
   render();
 }
 
-function level() {
-  return Math.floor(data.xp / 100) + 1;
-}
-
-function rankName() {
-  const l = level();
-  if (l >= 30) return "S";
-  if (l >= 20) return "A";
-  if (l >= 12) return "B";
-  if (l >= 7) return "C";
-  if (l >= 3) return "D";
-  return "E";
-}
-
-function checkDay() {
-  if (data.day !== today()) {
-    data.day = today();
-    data.done = [];
-    localStorage.setItem("soloSave",JSON.stringify(data));
+function checkDay(){
+  if(data.day!==today()){
+    data.day=today();
+    data.done=[];
+    saveData();
   }
 }
 
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.style.display = "block";
-  clearTimeout(window.toastTimer);
-  window.toastTimer = setTimeout(() => {
-    toast.style.display = "none";
-  },2600);
-}
-
-function notify(message) {
-  document.getElementById("systemMessage").textContent = message;
-  showToast("SYSTEM: " + message);
-}
-
-function complete(index,checked) {
-  if (checked && !data.done.includes(index)) {
+function complete(index,checked){
+  if(checked&&!data.done.includes(index)){
     data.done.push(index);
-    data.xp += quests[index].xp;
-    if (!data.days.includes(today())) data.days.push(today());
-    notify("Quest completed. +" + quests[index].xp + " XP earned.");
-  } else if (!checked && data.done.includes(index)) {
-    data.done = data.done.filter(i => i !== index);
-    data.xp = Math.max(0,data.xp-quests[index].xp);
+    awardXP(quests[index].xp,"Quest completed: "+quests[index].name);
+  }else if(!checked&&data.done.includes(index)){
+    data.done=data.done.filter(i=>i!==index);
+    data.xp=Math.max(0,data.xp-quests[index].xp);
+    saveData();
+    render();
+    showToast("Quest unchecked. XP adjusted.");
   }
-  saveData();
 }
 
-function questHTML(index) {
-  return `
-    <div class="quest">
-      <input type="checkbox" id="q${index}"
-        ${data.done.includes(index) ? "checked" : ""}
-        onchange="complete(${index},this.checked)">
-      <label for="q${index}">${quests[index].name}</label>
-      <span class="reward">+${quests[index].xp} XP</span>
-    </div>`;
+function questHTML(index){
+  return `<div class="quest">
+    <input type="checkbox" id="q${index}" ${data.done.includes(index)?"checked":""}
+      onchange="complete(${index},this.checked)">
+    <label for="q${index}">${quests[index].name}</label>
+    <span class="reward">+${quests[index].xp} XP</span>
+  </div>`;
 }
 
-function claimReward() {
-  if (data.lastLoginReward === today()) {
-    showToast("Daily reward already claimed today.");
+function claimReward(){
+  if(data.lastLoginReward===today()){
+    showToast("Daily reward already claimed.");
     return;
   }
-
-  data.xp += 20;
-  data.lastLoginReward = today();
-
-  if (!data.days.includes(today())) data.days.push(today());
-
-  saveData();
-  notify("Daily login reward claimed. +20 XP!");
+  data.lastLoginReward=today();
+  awardXP(20,"Daily login reward claimed");
 }
 
-function getAchievements() {
-  const totalDone = data.days.length;
+function getAchievements(){
   return [
-    {id:"first",icon:"🌟",name:"First Steps",desc:"Reach 100 total XP",unlocked:data.xp>=100},
-    {id:"level5",icon:"⚔️",name:"Rising Hunter",desc:"Reach Level 5",unlocked:level()>=5},
-    {id:"level10",icon:"🔥",name:"Power Awakening",desc:"Reach Level 10",unlocked:level()>=10},
-    {id:"quests",icon:"🎯",name:"Quest Beginner",desc:"Complete all six daily quests in one day",unlocked:data.done.length>=6},
-    {id:"days",icon:"📅",name:"Consistency",desc:"Be active on 7 different days",unlocked:totalDone>=7},
-    {id:"xp500",icon:"💎",name:"Experienced Hunter",desc:"Earn 500 total XP",unlocked:data.xp>=500}
+    {id:"first",icon:"🌟",name:"First Steps",desc:"Reach 100 total XP",ok:data.xp>=100},
+    {id:"level5",icon:"⚔️",name:"Rising Hunter",desc:"Reach Level 5",ok:level()>=5},
+    {id:"level10",icon:"🔥",name:"Power Awakening",desc:"Reach Level 10",ok:level()>=10},
+    {id:"quests",icon:"🎯",name:"Quest Beginner",desc:"Complete all six daily quests",ok:data.done.length>=6},
+    {id:"days",icon:"📅",name:"Consistency",desc:"Be active on 7 different days",ok:data.days.length>=7},
+    {id:"xp500",icon:"💎",name:"Experienced Hunter",desc:"Earn 500 total XP",ok:data.xp>=500}
   ];
 }
 
-function renderAchievements() {
-  const list = getAchievements();
-  const html = list.map(a => `
-    <div class="achievement ${a.unlocked ? "" : "locked"}">
-      <span class="achievement-icon">${a.icon}</span>
-      <div>
-        <b>${a.name}</b><br>
-        <small>${a.desc}</small>
-        <div class="tag">${a.unlocked ? "✓ UNLOCKED" : "🔒 LOCKED"}</div>
-      </div>
-    </div>
-  `).join("");
-
-  document.getElementById("achievements").innerHTML = html;
-  document.getElementById("homeAchievements").innerHTML =
-    list.filter(a => a.unlocked).length
-      ? list.filter(a => a.unlocked).map(a =>
-        `<div class="achievement"><span>${a.icon}</span><b>${a.name}</b></div>`
-      ).join("")
-      : '<p class="note">Your first achievement is waiting to be unlocked.</p>';
+function checkAchievements(){
+  getAchievements().forEach(a=>{
+    if(a.ok&&!data.unlocked.includes(a.id)){
+      data.unlocked.push(a.id);
+      addNotification("ACHIEVEMENT UNLOCKED: "+a.name);
+      celebrate("ACHIEVEMENT UNLOCKED",a.name+" — "+a.desc,a.icon,"NEW ACHIEVEMENT");
+    }
+  });
 }
 
-function render() {
-  const l = level();
-  const currentXP = data.xp % 100;
-  const rank = rankName();
+function renderAchievements(){
+  const list=getAchievements();
+  const html=list.map(a=>`
+    <div class="achievement ${a.ok?"":"locked"}">
+      <span style="font-size:24px">${a.icon}</span>
+      <div><b>${a.name}</b><br><small>${a.desc}</small><div class="tag">${a.ok?"✓ UNLOCKED":"🔒 LOCKED"}</div></div>
+    </div>`).join("");
+  document.getElementById("achievements").innerHTML=html;
+  document.getElementById("homeAchievements").innerHTML=
+    list.filter(a=>a.ok).length
+      ?list.filter(a=>a.ok).map(a=>`<div class="notice">${a.icon} ${a.name} — UNLOCKED</div>`).join("")
+      :'<p class="note">Your first achievement is waiting to be unlocked.</p>';
+}
 
-  document.getElementById("level").textContent = l;
-  document.getElementById("xp").textContent = currentXP;
-  document.getElementById("xpbar").style.width = currentXP + "%";
-  document.getElementById("rank").textContent = rank + "-RANK HUNTER";
-  document.getElementById("done").textContent = data.done.length;
-  document.getElementById("streak").textContent = data.days.length;
-  document.getElementById("total").textContent = data.xp;
+function render(){
+  const l=level(),current=data.xp%100,rank=rankName();
+  document.getElementById("level").textContent=l;
+  document.getElementById("xp").textContent=current;
+  document.getElementById("xpbar").style.width=current+"%";
+  document.getElementById("rank").textContent=rank+"-RANK HUNTER";
+  document.getElementById("done").textContent=data.done.length;
+  document.getElementById("streak").textContent=data.days.length;
+  document.getElementById("total").textContent=data.xp;
 
-  document.getElementById("homeQuests").innerHTML =
-    quests.slice(0,3).map((q) => questHTML(quests.indexOf(q))).join("");
-  document.getElementById("allQuests").innerHTML =
-    quests.map((q,i) => questHTML(i)).join("");
+  document.getElementById("homeQuests").innerHTML=quests.slice(0,3).map((q)=>questHTML(quests.indexOf(q))).join("");
+  document.getElementById("allQuests").innerHTML=quests.map((q,i)=>questHTML(i)).join("");
 
-  document.getElementById("profileLevel").textContent = l;
-  document.getElementById("profileXP").textContent = data.xp;
-  document.getElementById("profileDone").textContent = data.days.length;
-  document.getElementById("profileRank").textContent = rank + "-RANK";
-  document.getElementById("profileName").textContent = hunter.name || "Unknown Hunter";
-  document.getElementById("profileGoal").textContent =
-    "Main goal: " + (hunter.goal || "Not set");
+  document.getElementById("welcome").textContent="Welcome, "+(hunter.name||"Hunter")+".";
+  document.getElementById("welcomeSub").textContent=hunter.goal?"Your current mission: "+hunter.goal+".":"Your journey starts now.";
+  document.getElementById("profileName").textContent=hunter.name||"Unknown Hunter";
+  document.getElementById("profileGoal").textContent="Main goal: "+(hunter.goal||"Not set");
+  document.getElementById("profileLevel").textContent=l;
+  document.getElementById("profileXP").textContent=data.xp;
+  document.getElementById("profileDone").textContent=data.days.length;
+  document.getElementById("profileRank").textContent=rank+"-RANK";
 
-  document.getElementById("welcome").textContent =
-    "Welcome, " + (hunter.name || "Hunter") + ".";
-  document.getElementById("welcomeSub").textContent =
-    hunter.goal ? "Your current mission: " + hunter.goal + "." :
-    "Your journey starts with one quest.";
+  const claimed=data.lastLoginReward===today();
+  document.getElementById("claimButton").disabled=claimed;
+  document.getElementById("claimButton").textContent=claimed?"CLAIMED ✓":"CLAIM REWARD";
+  document.getElementById("rewardStatus").textContent=claimed?"Your next daily reward will be available tomorrow.":"Your reward is ready to claim.";
 
-  const claimed = data.lastLoginReward === today();
-  document.getElementById("claimButton").disabled = claimed;
-  document.getElementById("claimButton").textContent =
-    claimed ? "CLAIMED ✓" : "CLAIM REWARD";
-  document.getElementById("rewardStatus").textContent =
-    claimed ? "Your next daily reward will be available tomorrow." :
-    "Your reward is ready to claim.";
+  document.getElementById("notifications").innerHTML=data.notifications.length
+    ?data.notifications.map(n=>`<div class="notice">${n.message}<div class="tag">${n.date}</div></div>`).join("")
+    :'<div class="notice">Welcome back, Hunter. The system is ready.</div>';
 
   renderAchievements();
 }
 
-function showPage(id) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+function showPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   document.getElementById(id).classList.add("active");
-
-  document.querySelectorAll("#navigation button").forEach(btn => {
-    btn.classList.toggle("selected",btn.dataset.page === id);
-  });
-
+  document.querySelectorAll("#navigation button").forEach(b=>b.classList.toggle("selected",b.dataset.page===id));
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-function resetDay() {
-  if (confirm("Reset today's quest checkboxes? Your total XP will remain unchanged.")) {
-    data.done = [];
-    data.day = today();
+function resetDay(){
+  if(confirm("Reset today's quest checkboxes? Your total XP will remain unchanged.")){
+    data.done=[];
+    data.day=today();
     saveData();
+    render();
     showToast("Today's quests have been reset.");
   }
 }
 
-function saveGoals() {
-  data.goals = {
-    push:document.getElementById("pushGoal").value,
-    pull:document.getElementById("pullGoal").value
-  };
-  localStorage.setItem("soloSave",JSON.stringify(data));
-  document.getElementById("saveMessage").textContent = "Goals saved successfully.";
+function openAwakening(){
+  document.getElementById("hunterName").value=hunter.name||"";
+  document.getElementById("hunterGoal").value=hunter.goal||"Build Strength";
+  document.getElementById("awakening").style.display="flex";
 }
+function closeAwakening(){document.getElementById("awakening").style.display="none"}
 
-function exportData() {
-  const exportObject = {hunter,data};
-  const blob = new Blob([JSON.stringify(exportObject,null,2)],{type:"application/json"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "solo-leveling-progress.json";
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast("Progress export prepared.");
-}
-
-function openAwakening() {
-  document.getElementById("hunterName").value = hunter.name || "";
-  document.getElementById("hunterGoal").value = hunter.goal || "Build Strength";
-  document.getElementById("awakening").style.display = "flex";
-}
-
-function closeAwakening() {
-  document.getElementById("awakening").style.display = "none";
-}
-
-function saveAwakening() {
-  const name = document.getElementById("hunterName").value.trim();
-  const goal = document.getElementById("hunterGoal").value;
-
-  if (!name) {
-    document.getElementById("awakeningMessage").textContent =
-      "Please enter your hunter name.";
+function saveAwakening(){
+  const name=document.getElementById("hunterName").value.trim();
+  const goal=document.getElementById("hunterGoal").value;
+  if(!name){
+    document.getElementById("awakeningMessage").textContent="Please enter your hunter name.";
     return;
   }
-
-  hunter = {name,goal};
+  hunter={name,goal};
   localStorage.setItem("hunterProfile",JSON.stringify(hunter));
+  addNotification("Hunter profile updated.");
   render();
-
-  document.getElementById("awakeningMessage").textContent =
-    "AWAKENING COMPLETE — Welcome, " + name + "!";
-  notify("Hunter profile updated successfully.");
-  setTimeout(closeAwakening,1200);
+  document.getElementById("awakeningMessage").textContent="AWAKENING COMPLETE!";
+  setTimeout(closeAwakening,900);
 }
 
-/* INITIALIZATION */
+function exportData(){
+  const blob=new Blob([JSON.stringify({hunter,data},null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="solo-leveling-progress.json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 checkDay();
-document.getElementById("pushGoal").value = data.goals.push;
-document.getElementById("pullGoal").value = data.goals.pull;
 render();
 showPage("home");
 
-/* SERVICE WORKER */
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load",() => {
-    navigator.serviceWorker.register("./sw.js")
-      .catch(error => console.log("Service worker:",error));
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./sw.js").catch(err=>console.log(err));
   });
 }
 </script>
