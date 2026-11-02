@@ -1,4 +1,4 @@
-const CACHE_NAME = "solo-leveling-v3";
+const CACHE_NAME = "solo-leveling-v4";
 
 const FILES_TO_CACHE = [
   "./",
