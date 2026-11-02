@@ -303,5 +303,15 @@ showPage = function(id) {
   });
 };
 </script>
+ <script>
+const hunter = JSON.parse(localStorage.getItem("hunterProfile") || "null");
+if (hunter && hunter.name) {
+  document.querySelectorAll("h1").forEach(h => {
+    if (h.textContent.includes("Welcome")) {
+      h.textContent = "Welcome, " + hunter.name + ".";
+    }
+  });
+}
+</script>
 </body>
 </html>
