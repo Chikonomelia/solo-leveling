@@ -679,6 +679,121 @@ function renderStreakPage() {
 
 addStreakPage();
 
+  
+function addWeeklyPage() {
+  const nav = document.getElementById("navigation");
+  if (document.getElementById("weeklyPage")) return;
+
+  const btn = document.createElement("button");
+  btn.textContent = "WEEKLY";
+  btn.dataset.page = "weeklyPage";
+  btn.onclick = () => showPage("weeklyPage");
+  nav.appendChild(btn);
+
+  const page = document.createElement("section");
+  page.id = "weeklyPage";
+  page.className = "page";
+
+  page.innerHTML = `
+    <div class="eyebrow">WEEKLY SYSTEM MISSIONS</div>
+    <h1>Weekly Challenges</h1>
+    <p class="sub">Small, achievable goals. Progress at your own pace.</p>
+    <div class="card">
+      <div class="row">
+        <h2>Weekly Progress</h2>
+        <span class="tag" id="weeklyCount">0 / 4</span>
+      </div>
+      <div class="bar"><div class="fill" id="weeklyBar"></div></div>
+      <p class="note" id="weeklyXP">Complete challenges to earn bonus XP.</p>
+    </div>
+    <div class="card">
+      <h2>🎯 This Week's Challenges</h2>
+      <div id="weeklyList"></div>
+    </div>
+    <p class="note">Challenges are optional. Rest days count as part of a balanced routine.</p>
+  `;
+
+  document.querySelector("main").insertBefore(
+    page, document.querySelector("footer")
+  );
+
+  renderWeeklyPage();
+}
+
+const weeklyChallenges = [
+  ["Enjoy 3 movement sessions", "Complete three comfortable activity sessions."],
+  ["Take 3 relaxing walks", "Enjoy three walks at your own pace."],
+  ["Make time for recovery", "Include two days of rest or gentle mobility."],
+  ["Build a sleep routine", "Aim for consistent, sufficient sleep this week."]
+];
+
+function getWeekKey() {
+  const d = new Date();
+  const start = new Date(d.getFullYear(),0,1);
+  const week = Math.ceil((((d-start)/86400000)+start.getDay()+1)/7);
+  return d.getFullYear()+"-W"+week;
+}
+
+function getWeeklyData() {
+  const key = getWeekKey();
+  let saved = {};
+  try {
+    saved = JSON.parse(localStorage.getItem("soloWeekly") || "{}") || {};
+  } catch(e) {}
+  if (saved.week !== key) saved = {week:key,done:[],bonus:false};
+  return saved;
+}
+
+function saveWeeklyData(saved) {
+  localStorage.setItem("soloWeekly",JSON.stringify(saved));
+}
+
+function toggleWeekly(index,checked) {
+  const saved = getWeeklyData();
+  if (checked && !saved.done.includes(index)) {
+    saved.done.push(index);
+  } else if (!checked) {
+    saved.done = saved.done.filter(i=>i!==index);
+  }
+
+  if (saved.done.length === 4 && !saved.bonus) {
+    saved.bonus = true;
+    awardXP(40,"Weekly challenge bonus");
+    celebrate("WEEKLY COMPLETE","All four weekly challenges completed! +40 XP","🏆","WEEKLY REWARD");
+  }
+
+  saveWeeklyData(saved);
+  renderWeeklyPage();
+}
+
+function renderWeeklyPage() {
+  if (!document.getElementById("weeklyPage")) return;
+
+  const saved = getWeeklyData();
+  const count = saved.done.length;
+
+  document.getElementById("weeklyCount").textContent = count+" / 4";
+  document.getElementById("weeklyBar").style.width = (count/4*100)+"%";
+  document.getElementById("weeklyXP").textContent =
+    saved.bonus ? "40 XP bonus claimed!" : "Complete all four for a 40 XP bonus.";
+
+  document.getElementById("weeklyList").innerHTML =
+    weeklyChallenges.map((item,i)=>`
+      <div class="quest">
+        <input type="checkbox" id="week${i}"
+          ${saved.done.includes(i)?"checked":""}
+          onchange="toggleWeekly(${i},this.checked)">
+        <label for="week${i}">
+          <b>${item[0]}</b><br>
+          <span class="note">${item[1]}</span>
+        </label>
+      </div>
+    `).join("");
+}
+
+addWeeklyPage();
+
+
 
 </script>
 </body>
