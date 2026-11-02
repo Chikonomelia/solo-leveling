@@ -293,6 +293,15 @@ function saveAwakening() {
   setTimeout(closeAwakening, 1500);
 }
 </script>
-
+<script>
+const oldShowPage = showPage;
+showPage = function(id) {
+  oldShowPage(id);
+  document.querySelectorAll('button[onclick*="showPage"]').forEach(btn => {
+    const selected = btn.getAttribute('onclick').includes("'" + id + "'");
+    btn.classList.toggle('secondary', !selected);
+  });
+};
+</script>
 </body>
 </html>
