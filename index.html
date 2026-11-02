@@ -31,7 +31,18 @@ h2{font-size:17px;margin:0 0 13px}
 .stat{background:#09110c;padding:13px 5px;border-radius:13px;text-align:center;min-width:0}
 .stat strong{display:block;color:var(--green);font-size:20px}
 .stat small{font-size:9px;color:var(--muted)}
-nav{display:flex;gap:7px;overflow-x:auto;padding:14px 0;scrollbar-width:thin}
+nav{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+  padding:14px 0;
+}
+nav button{
+  min-width:0;
+  width:100%;
+  padding:13px 2px;
+  font-size:10px;
+}
 button{background:var(--green);color:#071007;border:0;border-radius:10px;padding:12px 14px;font-weight:bold;cursor:pointer}
 button.secondary{background:#1b2920;color:var(--green);border:1px solid #3d5943}
 button:disabled{opacity:.5}
