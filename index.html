@@ -1,31 +1,20 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080d0b">
 <link rel="manifest" href="manifest.json">
 <title>Solo Leveling System</title>
-
 <style>
-:root {
-  --bg:#080d0b;
-  --panel:#111c15;
-  --green:#a3ff68;
-  --muted:#89968d;
-  --line:#293b2e;
-  --gold:#ffd76a;
-}
+:root{--bg:#080d0b;--panel:#111c15;--green:#a3ff68;--muted:#89968d;--line:#293b2e;--gold:#ffd76a}
 *{box-sizing:border-box}
-body{
-  margin:0;background:radial-gradient(ellipse at top,#193021,#080d0b 70%);
-  color:#eff8f0;font-family:Arial,sans-serif;min-height:100vh
-}
-header{padding:22px 18px 12px;display:flex;justify-content:space-between;align-items:center}
+body{margin:0;background:radial-gradient(ellipse at top,#193021,#080d0b 70%);color:#eff8f0;font-family:Arial,sans-serif;min-height:100vh}
+header{padding:22px 18px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
 .logo{font-weight:900;letter-spacing:2px;color:var(--green);font-size:18px}
-.status{border:1px solid #456b39;color:var(--green);padding:8px 11px;border-radius:20px;font-size:10px}
-main{max-width:760px;margin:auto;padding:10px 16px 55px}
+.status{border:1px solid #456b39;color:var(--green);padding:8px 11px;border-radius:20px;font-size:10px;white-space:nowrap}
+main{max-width:760px;margin:auto;padding:10px 16px 65px}
 .eyebrow{font-size:10px;letter-spacing:3px;color:var(--green);font-weight:bold}
 h1{font-size:29px;margin:10px 0}
 h2{font-size:17px;margin:0 0 13px}
@@ -33,29 +22,28 @@ h2{font-size:17px;margin:0 0 13px}
 .note{font-size:11px;color:var(--muted);line-height:1.6}
 .card{background:linear-gradient(145deg,#142019,#0d1510);border:1px solid var(--line);border-radius:17px;padding:18px;margin:14px 0;box-shadow:0 8px 28px #0004}
 .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.rank{color:var(--green);font-size:12px;font-weight:bold;letter-spacing:2px}
+.rank,.tag{color:var(--green);font-size:11px;font-weight:bold;letter-spacing:1px}
 .level{font-size:38px;font-weight:900;margin:12px 0}
 .xp{font-size:12px;color:var(--muted)}
 .bar{height:10px;background:#29372e;border-radius:20px;margin-top:12px;overflow:hidden}
-.fill{height:100%;width:0;background:linear-gradient(90deg,#55c83d,var(--green));border-radius:20px;transition:width .8s ease}
-.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:17px}
-.stat{background:#09110c;padding:13px 5px;border-radius:13px;text-align:center}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#55c83d,var(--green));border-radius:20px;transition:width .5s}
+.statgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:17px}
+.stat{background:#09110c;padding:13px 5px;border-radius:13px;text-align:center;min-width:0}
 .stat strong{display:block;color:var(--green);font-size:20px}
 .stat small{font-size:9px;color:var(--muted)}
-nav{display:flex;gap:7px;overflow-x:auto;padding:14px 0}
+nav{display:flex;gap:7px;overflow-x:auto;padding:14px 0;scrollbar-width:thin}
 button{background:var(--green);color:#071007;border:0;border-radius:10px;padding:12px 14px;font-weight:bold;cursor:pointer}
 button.secondary{background:#1b2920;color:var(--green);border:1px solid #3d5943}
 button:disabled{opacity:.5}
-nav button{flex:1;min-width:70px;padding:12px 6px;font-size:11px}
+nav button{flex:0 0 auto;min-width:78px;padding:12px 10px;font-size:11px}
 nav button.selected{background:var(--green);color:#071007}
 .page{display:none}
 .page.active{display:block}
 .quest{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}
 .quest:last-child{border:0}
-.quest input{width:19px;height:19px;accent-color:var(--green)}
+.quest input{width:19px;height:19px;accent-color:var(--green);flex:0 0 auto}
 .quest label{flex:1;font-size:12px;line-height:1.5}
 .reward{color:var(--green);font-size:11px;white-space:nowrap}
-.tag{font-size:10px;color:var(--green)}
 .reward-box{border-color:#75602b;background:linear-gradient(130deg,#292315,#17170e)}
 .reward-box h2{color:var(--gold)}
 .exercise{padding:12px 0;border-bottom:1px solid var(--line)}
@@ -68,831 +56,308 @@ nav button.selected{background:var(--green);color:#071007}
 .notice{border-left:3px solid var(--green);padding:10px 12px;background:#101b13;margin:9px 0;border-radius:0 9px 9px 0;font-size:12px}
 .toast{position:fixed;z-index:200;bottom:22px;left:50%;transform:translateX(-50%);width:calc(100% - 36px);max-width:420px;background:#17271c;border:1px solid var(--green);border-radius:12px;padding:14px;text-align:center;display:none;font-size:13px;box-shadow:0 0 25px #a3ff6833}
 .overlay{display:none;position:fixed;inset:0;z-index:300;background:#020704ed;align-items:center;justify-content:center;padding:20px}
-.modal{width:100%;max-width:430px;text-align:center;background:radial-gradient(ellipse at center,#1c3922,#0a100c 70%);border:1px solid var(--green);border-radius:20px;padding:28px 20px;box-shadow:0 0 45px #76ff4c44;animation:pop .45s ease}
+.modal{width:100%;max-width:430px;text-align:center;background:radial-gradient(ellipse at center,#1c3922,#0a100c 70%);border:1px solid var(--green);border-radius:20px;padding:28px 20px;box-shadow:0 0 45px #76ff4c44}
 .modal .big{font-size:55px;margin:12px}
-.modal h1{font-size:34px;color:var(--green);letter-spacing:2px}
+.modal h1{font-size:30px;color:var(--green);letter-spacing:2px}
 .modal p{color:#c0d0c3;font-size:13px;line-height:1.6}
-.modal button{width:100%;margin-top:14px}
-@keyframes pop{from{opacity:0;transform:scale(.75)}to{opacity:1;transform:scale(1)}}
-@keyframes glow{0%,100%{box-shadow:0 0 8px #a3ff6844}50%{box-shadow:0 0 28px #a3ff68aa}}
-.level-card{animation:glow 2s infinite}
-input[type=number],input[type=text],select{background:#0b130e;border:1px solid var(--line);color:white;border-radius:8px;padding:11px}
+.modal button{width:100%;margin-top:12px}
+input[type=text],select{background:#0b130e;border:1px solid var(--line);color:white;border-radius:8px;padding:11px}
 footer{text-align:center;color:#53635a;font-size:10px;padding:25px}
 .awaken{position:fixed;right:17px;bottom:18px;z-index:50;border-radius:30px;box-shadow:0 0 22px #a3ff6866}
-@media(max-width:380px){h1{font-size:25px}.logo{font-size:15px}}
+.chart{display:flex;align-items:end;justify-content:space-around;height:150px;gap:9px;margin-top:20px}
+.chart-col{flex:1;text-align:center}
+.chart-track{height:105px;display:flex;align-items:end}
+.chart-bar{width:100%;border-radius:7px 7px 2px 2px}
+@media(max-width:380px){h1{font-size:25px}.logo{font-size:15px}.stat strong{font-size:17px}}
 </style>
 </head>
-
 <body>
-<header>
-  <div class="logo">SOLO LEVELING</div>
-  <div class="status">● SYSTEM ONLINE</div>
-</header>
-
+<header><div class="logo">SOLO LEVELING</div><div class="status">● SYSTEM ONLINE</div></header>
 <main>
-  <div class="eyebrow">PLAYER STATUS</div>
-  <h1 id="welcome">Welcome, Hunter.</h1>
-  <p class="sub" id="welcomeSub">Your journey starts now.</p>
+<div class="eyebrow">PLAYER STATUS</div>
+<h1 id="welcome">Welcome, Hunter.</h1>
+<p class="sub" id="welcomeSub">Your journey starts now.</p>
+<nav id="navigation">
+<button data-page="home" onclick="showPage('home')">HOME</button>
+<button data-page="quests" onclick="showPage('quests')">QUESTS</button>
+<button data-page="training" onclick="showPage('training')">TRAINING</button>
+<button data-page="stats" onclick="showPage('stats')">PROFILE</button>
+<button data-page="rankPage" onclick="showPage('rankPage')">RANKS</button>
+<button data-page="streakPage" onclick="showPage('streakPage')">STREAK</button>
+<button data-page="weeklyPage" onclick="showPage('weeklyPage')">WEEKLY</button>
+<button data-page="dashboardPage" onclick="showPage('dashboardPage')">DASHBOARD</button>
+</nav>
 
-  <nav id="navigation">
-    <button data-page="home" onclick="showPage('home')">HOME</button>
-    <button data-page="quests" onclick="showPage('quests')">QUESTS</button>
-    <button data-page="training" onclick="showPage('training')">TRAINING</button>
-    <button data-page="stats" onclick="showPage('stats')">PROFILE</button>
-  </nav>
+<section id="home" class="page active">
+<div class="card">
+<div class="row"><span class="rank" id="rank">E-RANK HUNTER</span><span class="tag">PLAYER</span></div>
+<div class="level">LEVEL <span id="level">1</span></div>
+<div class="xp"><span id="xp">0</span> / 100 XP TO NEXT LEVEL</div>
+<div class="bar"><div class="fill" id="xpbar"></div></div>
+<div class="statgrid">
+<div class="stat"><strong id="done">0</strong><small>QUESTS DONE TODAY</small></div>
+<div class="stat"><strong id="streak">0</strong><small>ACTIVE DAYS</small></div>
+<div class="stat"><strong id="total">0</strong><small>TOTAL XP</small></div>
+</div>
+</div>
+<div class="card reward-box">
+<div class="row"><h2>🎁 Daily Login Reward</h2><span class="tag">DAILY</span></div>
+<p class="sub">A small bonus for checking in. Take breaks whenever you need them.</p>
+<div class="row"><strong style="color:var(--gold)">+20 XP</strong><button id="claimButton" onclick="claimReward()">CLAIM REWARD</button></div>
+<p class="note" id="rewardStatus"></p>
+</div>
+<div class="card">
+<div class="row"><h2>⚡ Today's Missions</h2><span class="tag">DAILY</span></div>
+<div id="homeQuests"></div>
+<button class="secondary" style="width:100%;margin-top:12px" onclick="showPage('quests')">VIEW ALL QUESTS →</button>
+</div>
+<div class="card"><h2>◈ System Notifications</h2><div id="notifications"></div></div>
+<div class="card"><h2>🏆 Achievements</h2><div id="homeAchievements"></div><button class="secondary" style="width:100%;margin-top:10px" onclick="showPage('stats')">VIEW PROFILE →</button></div>
+</section>
 
-  <section id="home" class="page active">
-    <div class="card level-card">
-      <div class="row">
-        <span class="rank" id="rank">E-RANK HUNTER</span>
-        <span class="tag">PLAYER</span>
-      </div>
-      <div class="level">LEVEL <span id="level">1</span></div>
-      <div class="xp"><span id="xp">0</span> / 100 XP TO NEXT LEVEL</div>
-      <div class="bar"><div class="fill" id="xpbar"></div></div>
-      <div class="statgrid">
-        <div class="stat"><strong id="done">0</strong><small>QUESTS DONE TODAY</small></div>
-        <div class="stat"><strong id="streak">0</strong><small>ACTIVE DAYS</small></div>
-        <div class="stat"><strong id="total">0</strong><small>TOTAL XP</small></div>
-      </div>
-    </div>
+<section id="quests" class="page">
+<div class="eyebrow">DAILY MISSIONS</div><h1>Your Quests</h1>
+<p class="sub">Complete healthy everyday habits to earn XP.</p>
+<div class="card"><div id="allQuests"></div></div>
+<button class="secondary" onclick="resetDay()">RESET TODAY'S QUESTS</button>
+<p class="note">Resetting checkboxes does not remove earned XP. Only check activities you completed.</p>
+</section>
 
-    <div class="card reward-box">
-      <div class="row"><h2>🎁 Daily Login Reward</h2><span class="tag">DAILY</span></div>
-      <p class="sub">Return each day to claim your system reward.</p>
-      <div class="row"><strong style="color:var(--gold)">+20 XP</strong><button id="claimButton" onclick="claimReward()">CLAIM REWARD</button></div>
-      <p class="note" id="rewardStatus"></p>
-    </div>
+<section id="training" class="page">
+<div class="eyebrow">TRAINING PROTOCOL</div><h1>Training Ground</h1>
+<p class="sub">Build consistency. Rest is part of progress.</p>
+<div class="card"><h2>⚔ Day A · Full Body</h2>
+<div class="exercise"><b>Wall or incline push-ups</b><p>1–2 comfortable sets of 5–8 repetitions.</p></div>
+<div class="exercise"><b>Bodyweight squats</b><p>1–2 comfortable sets of 6–10 repetitions.</p></div>
+<div class="exercise"><b>Glute bridges</b><p>1–2 sets of 8–10 repetitions.</p></div>
+<div class="exercise"><b>Easy walking</b><p>5–10 minutes at a comfortable pace.</p></div>
+</div>
+<div class="card"><h2>🛡 Day B · Mobility</h2>
+<div class="exercise"><b>Supported rows</b><p>1–2 comfortable sets of 8 repetitions, with a safe setup.</p></div>
+<div class="exercise"><b>Gentle stretching</b><p>About 5 minutes without forcing any movement.</p></div>
+<div class="exercise"><b>Easy walk or relaxed movement</b><p>Choose an activity you enjoy.</p></div>
+</div>
+<div class="card"><h2>📅 Weekly Schedule</h2>
+<p class="note">Monday: A · Tuesday: Easy walk · Wednesday: B · Thursday: Rest · Friday: A · Saturday: Fun activity · Sunday: Rest.</p>
+<p class="note">Keep effort comfortable. Stop if you feel pain, dizzy or unwell. Aim for 8–10 hours of sleep and regular balanced meals.</p>
+</div>
+</section>
 
-    <div class="card">
-      <div class="row"><h2>⚡ Today's Missions</h2><span class="tag">DAILY</span></div>
-      <div id="homeQuests"></div>
-      <button class="secondary" style="width:100%;margin-top:12px" onclick="showPage('quests')">VIEW ALL QUESTS →</button>
-    </div>
+<section id="stats" class="page">
+<div class="eyebrow">HUNTER PROFILE</div><h1>My Progress</h1>
+<div class="card">
+<div class="row"><div><div class="tag">HUNTER NAME</div><h2 id="profileName">Unknown Hunter</h2></div><div class="rank" id="profileRank">E-RANK</div></div>
+<p class="note" id="profileGoal">Main goal: Not set</p>
+<div class="statgrid">
+<div class="stat"><strong id="profileLevel">1</strong><small>LEVEL</small></div>
+<div class="stat"><strong id="profileXP">0</strong><small>TOTAL XP</small></div>
+<div class="stat"><strong id="profileDone">0</strong><small>ACTIVE DAYS</small></div>
+</div>
+</div>
+<div class="card"><h2>🏆 Achievement Collection</h2><div id="achievements"></div></div>
+<div class="card"><h2>System Data</h2><p class="note">Progress is stored locally on this phone. Export a backup before changing devices.</p><button class="secondary" onclick="exportData()">EXPORT PROGRESS</button></div>
+</section>
 
-    <div class="card">
-      <h2>◈ System Notifications</h2>
-      <div id="notifications"><div class="notice">Welcome back, Hunter. The system is ready.</div></div>
-    </div>
+<section id="rankPage" class="page">
+<div class="eyebrow">HUNTER CLASSIFICATION</div><h1>Hunter Ranks</h1>
+<p class="sub">Rise through the ranks at your own pace.</p>
+<div class="card"><div class="tag">CURRENT HUNTER RANK</div><h1 id="currentHunterRank" style="color:var(--green);font-size:42px">E-RANK</h1><p class="sub" id="rankProgressText"></p><div class="bar"><div class="fill" id="rankProgressBar"></div></div></div>
+<div id="rankCards"></div>
+</section>
 
-    <div class="card">
-      <h2>🏆 Achievements</h2>
-      <div id="homeAchievements"></div>
-      <button class="secondary" style="width:100%;margin-top:10px" onclick="showPage('stats')">VIEW ALL ACHIEVEMENTS →</button>
-    </div>
-  </section>
+<section id="streakPage" class="page">
+<div class="eyebrow">DAILY SYSTEM RECORD</div><h1>Login Streak</h1>
+<p class="sub">Build consistency one day at a time. Missing a day is okay—continue when ready.</p>
+<div class="card"><div class="tag">ACTIVE DAYS RECORDED</div><h1 id="streakTotal" style="color:var(--green);font-size:45px">0</h1><p class="sub">Days you've checked in.</p></div>
+<div class="card"><h2>📅 Recent Activity</h2><div id="streakCalendar"></div></div>
+</section>
 
-  <section id="quests" class="page">
-    <div class="eyebrow">DAILY MISSIONS</div>
-    <h1>Your Quests</h1>
-    <p class="sub">Complete your daily habits to earn XP.</p>
-    <div class="card"><div id="allQuests"></div></div>
-    <button class="secondary" onclick="resetDay()">RESET TODAY'S QUESTS</button>
-    <p class="note">Resetting daily quests does not remove your earned XP.</p>
-  </section>
+<section id="weeklyPage" class="page">
+<div class="eyebrow">WEEKLY SYSTEM MISSIONS</div><h1>Weekly Challenges</h1>
+<p class="sub">Small, achievable goals. Progress at your own pace.</p>
+<div class="card"><div class="row"><h2>Weekly Progress</h2><span class="tag" id="weeklyCount">0 / 4</span></div><div class="bar"><div class="fill" id="weeklyBar"></div></div><p class="note" id="weeklyXP">Complete challenges for a bonus.</p></div>
+<div class="card"><h2>🎯 This Week's Challenges</h2><div id="weeklyList"></div></div>
+<p class="note">Challenges are optional. Rest and recovery count.</p>
+</section>
 
-  <section id="training" class="page">
-    <div class="eyebrow">TRAINING PROTOCOL</div>
-    <h1>Training Ground</h1>
-    <p class="sub">Build consistency. Rest is part of progress.</p>
-    <div class="card">
-      <h2>⚔ Day A · Full Body</h2>
-      <div class="exercise"><b>Wall or incline push-ups</b><p>1–2 sets of 5–8 comfortable repetitions.</p></div>
-      <div class="exercise"><b>Bodyweight squats</b><p>1–2 sets of 6–10 comfortable repetitions.</p></div>
-      <div class="exercise"><b>Glute bridges</b><p>1–2 sets of 8–10 repetitions.</p></div>
-      <div class="exercise"><b>Easy walking</b><p>5–10 minutes at a comfortable pace.</p></div>
-    </div>
-    <div class="card">
-      <h2>🛡 Day B · Mobility</h2>
-      <div class="exercise"><b>Supported rows</b><p>1–2 sets of 8 comfortable repetitions.</p></div>
-      <div class="exercise"><b>Light dumbbell curls</b><p>1–2 sets of 8 comfortable repetitions, if suitable weights are available.</p></div>
-      <div class="exercise"><b>Gentle stretching</b><p>About 5 minutes without forcing any movement.</p></div>
-    </div>
-    <div class="card">
-      <h2>📅 Weekly Schedule</h2>
-      <p class="note">Monday: A · Tuesday: Easy walk · Wednesday: B · Thursday: Rest · Friday: A · Saturday: Fun activity · Sunday: Rest.</p>
-      <p class="note">Keep effort comfortable. Stop if you feel pain, dizzy or unwell. Aim for 8–10 hours of sleep.</p>
-    </div>
-  </section>
+<section id="dashboardPage" class="page">
+<div class="eyebrow">HUNTER ANALYTICS</div><h1>Hunter Dashboard</h1>
+<p class="sub">Your journey, measured over time.</p>
+<div class="card"><h2>📊 Overall Statistics</h2><div class="statgrid"><div class="stat"><strong id="dashXP">0</strong><small>TOTAL XP</small></div><div class="stat"><strong id="dashLevel">1</strong><small>LEVEL</small></div><div class="stat"><strong id="dashQuests">0</strong><small>QUESTS DONE TODAY</small></div></div></div>
+<div class="card"><h2>⚔️ Weekly Activity</h2><div id="activityChart" class="chart"></div><p class="note">Recorded active days over the last seven days.</p></div>
+<div class="card"><h2>🏆 Achievements & Activity</h2><div class="statgrid"><div class="stat"><strong id="dashAchievements">0</strong><small>UNLOCKED</small></div><div class="stat"><strong id="dashDays">0</strong><small>ACTIVE DAYS</small></div><div class="stat"><strong id="dashRank">E</strong><small>HUNTER RANK</small></div></div></div>
+</section>
 
-  <section id="stats" class="page">
-    <div class="eyebrow">HUNTER PROFILE</div>
-    <h1>My Progress</h1>
-    <div class="card">
-      <div class="row">
-        <div><div class="tag">HUNTER NAME</div><h2 id="profileName">Unknown Hunter</h2></div>
-        <div class="rank" id="profileRank">E-RANK</div>
-      </div>
-      <p class="note" id="profileGoal">Main goal: Not set</p>
-      <div class="statgrid">
-        <div class="stat"><strong id="profileLevel">1</strong><small>LEVEL</small></div>
-        <div class="stat"><strong id="profileXP">0</strong><small>TOTAL XP</small></div>
-        <div class="stat"><strong id="profileDone">0</strong><small>ACTIVE DAYS</small></div>
-      </div>
-    </div>
-    <div class="card"><h2>🏆 Achievement Collection</h2><div id="achievements"></div></div>
-    <div class="card">
-      <h2>System Data</h2>
-      <p class="note">Your progress is stored locally on this phone.</p>
-      <button class="secondary" onclick="exportData()">EXPORT PROGRESS</button>
-    </div>
-  </section>
-
-  <footer>SOLO LEVELING SYSTEM · YOUR JOURNEY, YOUR PACE</footer>
+<footer>SOLO LEVELING SYSTEM · YOUR JOURNEY, YOUR PACE</footer>
 </main>
 
 <button class="awaken" onclick="openAwakening()">⚡ AWAKENING</button>
-
-<div class="overlay" id="celebration">
-  <div class="modal">
-    <div class="eyebrow" id="celebrationEyebrow">SYSTEM ALERT</div>
-    <div class="big" id="celebrationIcon">⚡</div>
-    <h1 id="celebrationTitle">LEVEL UP!</h1>
-    <p id="celebrationText">Your power has increased.</p>
-    <button onclick="closeCelebration()">CONTINUE</button>
-  </div>
-</div>
-
-<div class="overlay" id="awakening">
-  <div class="modal">
-    <div class="eyebrow">SYSTEM INITIALIZATION</div>
-    <h1>SYSTEM AWAKENING</h1>
-    <p>Hunter, identify yourself.</p>
-    <input id="hunterName" type="text" maxlength="24" placeholder="Enter hunter name" style="width:100%;margin:10px 0">
-    <select id="hunterGoal" style="width:100%;margin:10px 0">
-      <option>Build Strength</option>
-      <option>Master Calisthenics</option>
-      <option>Improve Stamina</option>
-      <option>Build Healthy Habits</option>
-    </select>
-    <button onclick="saveAwakening()">CONFIRM AWAKENING</button>
-    <button class="secondary" onclick="closeAwakening()">CLOSE</button>
-    <p id="awakeningMessage"></p>
-  </div>
-</div>
-
+<div class="overlay" id="celebration"><div class="modal"><div class="eyebrow" id="celebrationEyebrow">SYSTEM ALERT</div><div class="big" id="celebrationIcon">⚡</div><h1 id="celebrationTitle">LEVEL UP!</h1><p id="celebrationText">Your progress has advanced.</p><button onclick="closeCelebration()">CONTINUE</button></div></div>
+<div class="overlay" id="awakening"><div class="modal"><div class="eyebrow">SYSTEM INITIALIZATION</div><h1>SYSTEM AWAKENING</h1><p>Hunter, identify yourself.</p><input id="hunterName" type="text" maxlength="24" placeholder="Enter hunter name" style="width:100%;margin:10px 0"><select id="hunterGoal" style="width:100%;margin:10px 0"><option>Build Strength</option><option>Master Calisthenics</option><option>Improve Stamina</option><option>Build Healthy Habits</option></select><button onclick="saveAwakening()">CONFIRM AWAKENING</button><button class="secondary" onclick="closeAwakening()">CLOSE</button><p id="awakeningMessage"></p></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
-const today = () => {
-  const d = new Date();
-  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-};
-
-const quests = [
-  {name:"Complete a comfortable movement session",xp:25},
-  {name:"Take a short walk or enjoy outdoor activity",xp:15},
-  {name:"Drink water regularly today",xp:10},
-  {name:"Eat balanced meals",xp:15},
-  {name:"Take time to relax and recover",xp:15},
-  {name:"Aim for 8–10 hours of sleep",xp:20}
+"use strict";
+const today=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const quests=[
+{name:"Complete a comfortable movement session",xp:25},
+{name:"Take a short walk or enjoy outdoor activity",xp:15},
+{name:"Drink water regularly today",xp:10},
+{name:"Eat balanced meals",xp:15},
+{name:"Take time to relax and recover",xp:15},
+{name:"Aim for 8–10 hours of sleep",xp:20}
 ];
+const defaults={xp:0,done:[],day:today(),days:[],lastLoginReward:"",unlocked:[],notifications:[]};
+let data={};
+try{data=JSON.parse(localStorage.getItem("soloSave")||"{}")||{}}catch(e){data={}}
+data={...defaults,...data,done:Array.isArray(data.done)?data.done:[],days:Array.isArray(data.days)?data.days:[],unlocked:Array.isArray(data.unlocked)?data.unlocked:[],notifications:Array.isArray(data.notifications)?data.notifications:[]};
+if(!Number.isFinite(data.xp)||data.xp<0)data.xp=0;
+let hunter={};
+try{hunter=JSON.parse(localStorage.getItem("hunterProfile")||"{}")||{}}catch(e){hunter={}}
 
-const defaultData = {
-  xp:0,done:[],day:today(),days:[],lastLoginReward:"",
-  unlocked:[],notifications:[]
-};
-
-let data = {};
-try {
-  data = JSON.parse(localStorage.getItem("soloSave") || "{}") || {};
-} catch(e) { data = {}; }
-
-data = {
-  ...defaultData,
-  ...data,
-  done:Array.isArray(data.done)?data.done:[],
-  days:Array.isArray(data.days)?data.days:[],
-  unlocked:Array.isArray(data.unlocked)?data.unlocked:[],
-  notifications:Array.isArray(data.notifications)?data.notifications:[]
-};
-if (!Number.isFinite(data.xp) || data.xp < 0) data.xp = 0;
-
-let hunter = {};
-try {
-  hunter = JSON.parse(localStorage.getItem("hunterProfile") || "{}") || {};
-} catch(e) { hunter = {}; }
-
-function saveData(){
-  localStorage.setItem("soloSave",JSON.stringify(data));
-}
-
-function levelFor(xp){return Math.floor(xp/100)+1}
-function level(){return levelFor(data.xp)}
-
-function rankForLevel(l){
-  if(l>=30)return "S";
-  if(l>=20)return "A";
-  if(l>=12)return "B";
-  if(l>=7)return "C";
-  if(l>=3)return "D";
-  return "E";
-}
+function saveData(){localStorage.setItem("soloSave",JSON.stringify(data))}
+function level(){return Math.floor(data.xp/100)+1}
+function rankForLevel(l){return l>=30?"S":l>=20?"A":l>=12?"B":l>=7?"C":l>=3?"D":"E"}
 function rankName(){return rankForLevel(level())}
+function showToast(m){const e=document.getElementById("toast");e.textContent=m;e.style.display="block";clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>e.style.display="none",2600)}
+function addNotification(m){data.notifications.unshift({message:m,date:today()});data.notifications=data.notifications.slice(0,12);saveData();showToast("SYSTEM: "+m)}
+function celebrate(t,m,i,e){document.getElementById("celebrationTitle").textContent=t;document.getElementById("celebrationText").textContent=m;document.getElementById("celebrationIcon").textContent=i;document.getElementById("celebrationEyebrow").textContent=e;document.getElementById("celebration").style.display="flex"}
+function closeCelebration(){document.getElementById("celebration").style.display="none"}
 
-function addNotification(message){
-  data.notifications.unshift({message,date:today()});
-  data.notifications=data.notifications.slice(0,5);
-  saveData();
-  showToast("SYSTEM: "+message);
+function awardXP(n,reason){
+const oldL=level(),oldR=rankName();data.xp+=n;
+if(!data.days.includes(today()))data.days.push(today());
+addNotification(reason+" · +"+n+" XP");
+if(rankName()!==oldR)celebrate("RANK UP!","Your hunter rank is now "+rankName()+"-RANK.","👑","HUNTER PROMOTION");
+else if(level()>oldL)celebrate("LEVEL UP!","You reached Level "+level()+".","⚡","SYSTEM LEVEL UP");
+checkAchievements();saveData();render()
 }
-
-function showToast(message){
-  const el=document.getElementById("toast");
-  el.textContent=message;
-  el.style.display="block";
-  clearTimeout(window.toastTimer);
-  window.toastTimer=setTimeout(()=>el.style.display="none",2800);
+function checkDay(){if(data.day!==today()){data.day=today();data.done=[];saveData()}}
+function complete(i,on){
+if(on&&!data.done.includes(i)){data.done.push(i);awardXP(quests[i].xp,"Quest completed: "+quests[i].name)}
+else if(!on&&data.done.includes(i)){data.done=data.done.filter(x=>x!==i);data.xp=Math.max(0,data.xp-quests[i].xp);saveData();render();showToast("Quest unchecked. XP adjusted.")}
 }
+function questHTML(i){return `<div class="quest"><input type="checkbox" id="q${i}" ${data.done.includes(i)?"checked":""} onchange="complete(${i},this.checked)"><label for="q${i}">${quests[i].name}</label><span class="reward">+${quests[i].xp} XP</span></div>`}
+function claimReward(){if(data.lastLoginReward===today()){showToast("Daily reward already claimed.");return}data.lastLoginReward=today();awardXP(20,"Daily login reward claimed")}
 
-function celebrate(title,text,icon,eyebrow){
-  document.getElementById("celebrationTitle").textContent=title;
-  document.getElementById("celebrationText").textContent=text;
-  document.getElementById("celebrationIcon").textContent=icon;
-  document.getElementById("celebrationEyebrow").textContent=eyebrow;
-  document.getElementById("celebration").style.display="flex";
-}
-function closeCelebration(){
-  document.getElementById("celebration").style.display="none";
-}
-
-function awardXP(amount,reason){
-  const oldLevel=level();
-  const oldRank=rankName();
-  data.xp+=amount;
-  const newLevel=level();
-  const newRank=rankName();
-
-  if(!data.days.includes(today()))data.days.push(today());
-  addNotification(reason+" · +"+amount+" XP");
-
-  if(newRank!==oldRank){
-    addNotification("HUNTER RANK ADVANCED: "+oldRank+" → "+newRank);
-    celebrate("RANK UP!", "Your hunter rank is now "+newRank+"-RANK. A new stage begins.", "👑", "HUNTER PROMOTION");
-  } else if(newLevel>oldLevel){
-    addNotification("LEVEL UP! You reached Level "+newLevel);
-    celebrate("LEVEL UP!", "You reached Level "+newLevel+". Your journey continues.", "⚡", "SYSTEM LEVEL UP");
-  }
-  checkAchievements();
-  saveData();
-  render();
-}
-
-function checkDay(){
-  if(data.day!==today()){
-    data.day=today();
-    data.done=[];
-    saveData();
-  }
-}
-
-function complete(index,checked){
-  if(checked&&!data.done.includes(index)){
-    data.done.push(index);
-    awardXP(quests[index].xp,"Quest completed: "+quests[index].name);
-  }else if(!checked&&data.done.includes(index)){
-    data.done=data.done.filter(i=>i!==index);
-    data.xp=Math.max(0,data.xp-quests[index].xp);
-    saveData();
-    render();
-    showToast("Quest unchecked. XP adjusted.");
-  }
-}
-
-function questHTML(index){
-  return `<div class="quest">
-    <input type="checkbox" id="q${index}" ${data.done.includes(index)?"checked":""}
-      onchange="complete(${index},this.checked)">
-    <label for="q${index}">${quests[index].name}</label>
-    <span class="reward">+${quests[index].xp} XP</span>
-  </div>`;
-}
-
-function claimReward(){
-  if(data.lastLoginReward===today()){
-    showToast("Daily reward already claimed.");
-    return;
-  }
-  data.lastLoginReward=today();
-  awardXP(20,"Daily login reward claimed");
-}
-
-function getAchievements(){
-  return [
-    {id:"first",icon:"🌟",name:"First Steps",desc:"Reach 100 total XP",ok:data.xp>=100},
-    {id:"level5",icon:"⚔️",name:"Rising Hunter",desc:"Reach Level 5",ok:level()>=5},
-    {id:"level10",icon:"🔥",name:"Power Awakening",desc:"Reach Level 10",ok:level()>=10},
-    {id:"quests",icon:"🎯",name:"Quest Beginner",desc:"Complete all six daily quests",ok:data.done.length>=6},
-    {id:"days",icon:"📅",name:"Consistency",desc:"Be active on 7 different days",ok:data.days.length>=7},
-    {id:"xp500",icon:"💎",name:"Experienced Hunter",desc:"Earn 500 total XP",ok:data.xp>=500}
-  ];
-}
-
-function checkAchievements(){
-  getAchievements().forEach(a=>{
-    if(a.ok&&!data.unlocked.includes(a.id)){
-      data.unlocked.push(a.id);
-      addNotification("ACHIEVEMENT UNLOCKED: "+a.name);
-      celebrate("ACHIEVEMENT UNLOCKED",a.name+" — "+a.desc,a.icon,"NEW ACHIEVEMENT");
-    }
-  });
-}
-
+function getAchievements(){return[
+{id:"first",icon:"🌟",name:"First Steps",desc:"Reach 100 total XP",ok:data.xp>=100},
+{id:"level5",icon:"⚔️",name:"Rising Hunter",desc:"Reach Level 5",ok:level()>=5},
+{id:"level10",icon:"🔥",name:"Power Awakening",desc:"Reach Level 10",ok:level()>=10},
+{id:"quests",icon:"🎯",name:"Quest Beginner",desc:"Complete all six daily quests",ok:data.done.length>=6},
+{id:"days",icon:"📅",name:"Consistency",desc:"Be active on 7 different days",ok:data.days.length>=7},
+{id:"xp500",icon:"💎",name:"Experienced Hunter",desc:"Earn 500 total XP",ok:data.xp>=500}
+]}
+function checkAchievements(){getAchievements().forEach(a=>{if(a.ok&&!data.unlocked.includes(a.id)){data.unlocked.push(a.id);addNotification("ACHIEVEMENT UNLOCKED: "+a.name);celebrate("ACHIEVEMENT UNLOCKED",a.name+" — "+a.desc,a.icon,"NEW ACHIEVEMENT")}})}
 function renderAchievements(){
-  const list=getAchievements();
-  const html=list.map(a=>`
-    <div class="achievement ${a.ok?"":"locked"}">
-      <span style="font-size:24px">${a.icon}</span>
-      <div><b>${a.name}</b><br><small>${a.desc}</small><div class="tag">${a.ok?"✓ UNLOCKED":"🔒 LOCKED"}</div></div>
-    </div>`).join("");
-  document.getElementById("achievements").innerHTML=html;
-  document.getElementById("homeAchievements").innerHTML=
-    list.filter(a=>a.ok).length
-      ?list.filter(a=>a.ok).map(a=>`<div class="notice">${a.icon} ${a.name} — UNLOCKED</div>`).join("")
-      :'<p class="note">Your first achievement is waiting to be unlocked.</p>';
+const a=getAchievements();
+const html=a.map(x=>`<div class="achievement ${x.ok?"":"locked"}"><span style="font-size:24px">${x.icon}</span><div><b>${x.name}</b><br><small>${x.desc}</small><div class="tag">${x.ok?"✓ UNLOCKED":"🔒 LOCKED"}</div></div></div>`).join("");
+document.getElementById("achievements").innerHTML=html;
+document.getElementById("homeAchievements").innerHTML=a.some(x=>x.ok)?a.filter(x=>x.ok).map(x=>`<div class="notice">${x.icon} ${x.name} — UNLOCKED</div>`).join(""):'<p class="note">Your first achievement is waiting to be unlocked.</p>'
 }
 
 function render(){
-  const l=level(),current=data.xp%100,rank=rankName();
-  document.getElementById("level").textContent=l;
-  document.getElementById("xp").textContent=current;
-  document.getElementById("xpbar").style.width=current+"%";
-  document.getElementById("rank").textContent=rank+"-RANK HUNTER";
-  document.getElementById("done").textContent=data.done.length;
-  document.getElementById("streak").textContent=data.days.length;
-  document.getElementById("total").textContent=data.xp;
-
-  document.getElementById("homeQuests").innerHTML=quests.slice(0,3).map((q)=>questHTML(quests.indexOf(q))).join("");
-  document.getElementById("allQuests").innerHTML=quests.map((q,i)=>questHTML(i)).join("");
-
-  document.getElementById("welcome").textContent="Welcome, "+(hunter.name||"Hunter")+".";
-  document.getElementById("welcomeSub").textContent=hunter.goal?"Your current mission: "+hunter.goal+".":"Your journey starts now.";
-  document.getElementById("profileName").textContent=hunter.name||"Unknown Hunter";
-  document.getElementById("profileGoal").textContent="Main goal: "+(hunter.goal||"Not set");
-  document.getElementById("profileLevel").textContent=l;
-  document.getElementById("profileXP").textContent=data.xp;
-  document.getElementById("profileDone").textContent=data.days.length;
-  document.getElementById("profileRank").textContent=rank+"-RANK";
-
-  const claimed=data.lastLoginReward===today();
-  document.getElementById("claimButton").disabled=claimed;
-  document.getElementById("claimButton").textContent=claimed?"CLAIMED ✓":"CLAIM REWARD";
-  document.getElementById("rewardStatus").textContent=claimed?"Your next daily reward will be available tomorrow.":"Your reward is ready to claim.";
-
-  document.getElementById("notifications").innerHTML=data.notifications.length
-    ?data.notifications.map(n=>`<div class="notice">${n.message}<div class="tag">${n.date}</div></div>`).join("")
-    :'<div class="notice">Welcome back, Hunter. The system is ready.</div>';
-
-  renderAchievements();
+const l=level(),cur=data.xp%100,r=rankName();
+document.getElementById("level").textContent=l;
+document.getElementById("xp").textContent=cur;
+document.getElementById("xpbar").style.width=cur+"%";
+document.getElementById("rank").textContent=r+"-RANK HUNTER";
+document.getElementById("done").textContent=data.done.length;
+document.getElementById("streak").textContent=data.days.length;
+document.getElementById("total").textContent=data.xp;
+document.getElementById("homeQuests").innerHTML=quests.slice(0,3).map(q=>questHTML(quests.indexOf(q))).join("");
+document.getElementById("allQuests").innerHTML=quests.map((q,i)=>questHTML(i)).join("");
+document.getElementById("welcome").textContent="Welcome, "+(hunter.name||"Hunter")+".";
+document.getElementById("welcomeSub").textContent=hunter.goal?"Your current mission: "+hunter.goal+".":"Your journey starts now.";
+document.getElementById("profileName").textContent=hunter.name||"Unknown Hunter";
+document.getElementById("profileGoal").textContent="Main goal: "+(hunter.goal||"Not set");
+document.getElementById("profileLevel").textContent=l;
+document.getElementById("profileXP").textContent=data.xp;
+document.getElementById("profileDone").textContent=data.days.length;
+document.getElementById("profileRank").textContent=r+"-RANK";
+const claimed=data.lastLoginReward===today();
+document.getElementById("claimButton").disabled=claimed;
+document.getElementById("claimButton").textContent=claimed?"CLAIMED ✓":"CLAIM REWARD";
+document.getElementById("rewardStatus").textContent=claimed?"Your next daily reward will be available tomorrow.":"Your reward is ready to claim.";
+document.getElementById("notifications").innerHTML=data.notifications.length?data.notifications.map(n=>`<div class="notice">${n.message}<div class="tag">${n.date}</div></div>`).join(""):'<div class="notice">Welcome back, Hunter. The system is ready.</div>';
+renderAchievements();renderDashboard();renderStreakPage();renderWeeklyPage();updateRankPage()
 }
-
 function showPage(id){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  document.querySelectorAll("#navigation button").forEach(b=>b.classList.toggle("selected",b.dataset.page===id));
-  window.scrollTo({top:0,behavior:"smooth"});
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+const p=document.getElementById(id);if(p)p.classList.add("active");
+document.querySelectorAll("#navigation button").forEach(b=>b.classList.toggle("selected",b.dataset.page===id));
+window.scrollTo({top:0,behavior:"smooth"})
 }
-
-function resetDay(){
-  if(confirm("Reset today's quest checkboxes? Your total XP will remain unchanged.")){
-    data.done=[];
-    data.day=today();
-    saveData();
-    render();
-    showToast("Today's quests have been reset.");
-  }
-}
-
-function openAwakening(){
-  document.getElementById("hunterName").value=hunter.name||"";
-  document.getElementById("hunterGoal").value=hunter.goal||"Build Strength";
-  document.getElementById("awakening").style.display="flex";
-}
+function resetDay(){if(confirm("Reset today's quest checkboxes? Your total XP will remain unchanged.")){data.done=[];data.day=today();saveData();render();showToast("Today's quests have been reset.")}}
+function openAwakening(){document.getElementById("hunterName").value=hunter.name||"";document.getElementById("hunterGoal").value=hunter.goal||"Build Strength";document.getElementById("awakening").style.display="flex"}
 function closeAwakening(){document.getElementById("awakening").style.display="none"}
-
 function saveAwakening(){
-  const name=document.getElementById("hunterName").value.trim();
-  const goal=document.getElementById("hunterGoal").value;
-  if(!name){
-    document.getElementById("awakeningMessage").textContent="Please enter your hunter name.";
-    return;
-  }
-  hunter={name,goal};
-  localStorage.setItem("hunterProfile",JSON.stringify(hunter));
-  addNotification("Hunter profile updated.");
-  render();
-  document.getElementById("awakeningMessage").textContent="AWAKENING COMPLETE!";
-  setTimeout(closeAwakening,900);
+const name=document.getElementById("hunterName").value.trim(),goal=document.getElementById("hunterGoal").value;
+if(!name){document.getElementById("awakeningMessage").textContent="Please enter your hunter name.";return}
+hunter={name,goal};localStorage.setItem("hunterProfile",JSON.stringify(hunter));
+addNotification("Hunter profile updated.");render();
+document.getElementById("awakeningMessage").textContent="AWAKENING COMPLETE!";
+setTimeout(closeAwakening,800)
 }
-
 function exportData(){
-  const blob=new Blob([JSON.stringify({hunter,data},null,2)],{type:"application/json"});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");
-  a.href=url;
-  a.download="solo-leveling-progress.json";
-  a.click();
-  URL.revokeObjectURL(url);
+const blob=new Blob([JSON.stringify({hunter,data,weekly:getWeeklyData()},null,2)],{type:"application/json"});
+const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="solo-leveling-progress.json";a.click();URL.revokeObjectURL(url)
 }
 
-checkDay();
-render();
-showPage("home");
-
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("./sw.js").catch(err=>console.log(err));
-  });
+const rankLevels=[1,3,7,12,20,30],rankNames=["E","D","C","B","A","S"],rankIcons=["⚔️","🛡️","🔥","💎","👑","🌟"];
+function addRankPage(){
+document.getElementById("rankCards").innerHTML=rankNames.map((n,i)=>`<div class="card" id="rank-${n}"><div class="row"><div><div style="font-size:27px">${rankIcons[i]}</div><h2>${n}-RANK</h2><p class="note">Unlock at Level ${rankLevels[i]}</p></div><span class="tag" id="rankStatus-${n}"></span></div></div>`).join("");
+updateRankPage()
 }
-  
-function addRankPage() {
-  const nav = document.getElementById("navigation");
-  if (document.getElementById("rankPage")) return;
-
-  const button = document.createElement("button");
-  button.textContent = "RANKS";
-  button.dataset.page = "rankPage";
-  button.onclick = () => showPage("rankPage");
-  nav.appendChild(button);
-
-  const page = document.createElement("section");
-  page.id = "rankPage";
-  page.className = "page";
-
-  const ranks = [
-    ["E","E-RANK","Level 1","⚔️"],
-    ["D","D-RANK","Level 3","🛡️"],
-    ["C","C-RANK","Level 7","🔥"],
-    ["B","B-RANK","Level 12","💎"],
-    ["A","A-RANK","Level 20","👑"],
-    ["S","S-RANK","Level 30","🌟"]
-  ];
-
-  page.innerHTML = `
-    <div class="eyebrow">HUNTER CLASSIFICATION</div>
-    <h1>Hunter Ranks</h1>
-    <p class="sub">Rise through the ranks and unlock your potential.</p>
-    <div class="card">
-      <div class="tag">CURRENT HUNTER RANK</div>
-      <h1 id="currentHunterRank" style="color:var(--green);font-size:42px">E-RANK</h1>
-      <p class="sub" id="rankProgressText"></p>
-      <div class="bar"><div class="fill" id="rankProgressBar"></div></div>
-    </div>
-    <div id="rankCards"></div>
-  `;
-
-  document.querySelector("main").insertBefore(
-    page,
-    document.querySelector("footer")
-  );
-
-  document.getElementById("rankCards").innerHTML =
-    ranks.map(r => {
-      const required = Number(r[2].replace("Level ",""));
-      return `
-        <div class="card" id="rank-${r[0]}">
-          <div class="row">
-            <div>
-              <div style="font-size:27px">${r[3]}</div>
-              <h2>${r[1]}</h2>
-              <p class="note">Unlock at ${r[2]}</p>
-            </div>
-            <span class="tag" id="rankStatus-${r[0]}"></span>
-          </div>
-        </div>
-      `;
-    }).join("");
-
-  updateRankPage();
+function updateRankPage(){
+const cur=level(),idx=rankNames.indexOf(rankName()),next=rankLevels[idx+1];
+document.getElementById("currentHunterRank").textContent=rankName()+"-RANK";
+document.getElementById("rankProgressText").textContent=next?"Level "+cur+" · Next rank at Level "+next:"You have reached the highest hunter rank!";
+document.getElementById("rankProgressBar").style.width=(next?Math.min(100,(cur-rankLevels[idx])/(next-rankLevels[idx])*100):100)+"%";
+rankNames.forEach((n,i)=>{const ok=cur>=rankLevels[i],card=document.getElementById("rank-"+n);document.getElementById("rankStatus-"+n).textContent=ok?(n===rankName()?"★ CURRENT RANK":"✓ UNLOCKED"):"🔒 LOCKED";card.style.borderColor=n===rankName()?"var(--green)":"var(--line)";card.style.opacity=ok?"1":"0.5"})
 }
 
-function updateRankPage() {
-  if (!document.getElementById("rankPage")) return;
-
-  const levels = [1,3,7,12,20,30];
-  const names = ["E","D","C","B","A","S"];
-  const current = level();
-  const index = names.indexOf(rankName());
-  const nextLevel = levels[index + 1];
-
-  document.getElementById("currentHunterRank").textContent =
-    rankName() + "-RANK";
-
-  document.getElementById("rankProgressText").textContent =
-    nextLevel
-      ? "Level " + current + " · Next rank at Level " + nextLevel
-      : "You have reached the highest hunter rank!";
-
-  const progress = nextLevel
-    ? Math.min(100,((current-levels[index])/(nextLevel-levels[index]))*100)
-    : 100;
-
-  document.getElementById("rankProgressBar").style.width =
-    progress + "%";
-
-  names.forEach((name,i) => {
-    const unlocked = current >= levels[i];
-    const card = document.getElementById("rank-"+name);
-    const status = document.getElementById("rankStatus-"+name);
-
-    status.textContent = unlocked
-      ? (name === rankName() ? "★ CURRENT RANK" : "✓ UNLOCKED")
-      : "🔒 LOCKED";
-
-    card.style.borderColor =
-      name === rankName() ? "var(--green)" : "var(--line)";
-    card.style.opacity = unlocked ? "1" : "0.5";
-  });
+function renderStreakPage(){
+document.getElementById("streakTotal").textContent=data.days.length;const a=[];
+for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");a.push({key,label:d.toLocaleDateString("en",{weekday:"short"}),active:data.days.includes(key)})}
+document.getElementById("streakCalendar").innerHTML=a.map(d=>`<div class="row" style="padding:13px 0;border-bottom:1px solid var(--line)"><b>${d.label}</b><span class="tag">${d.key}</span><span style="color:${d.active?"var(--green)":"var(--muted)"}">${d.active?"✓ ACTIVE":"○"}</span></div>`).join("")
 }
 
-addRankPage();
-
-  
-function addStreakPage() {
-  const nav = document.getElementById("navigation");
-  if (document.getElementById("streakPage")) return;
-
-  const btn = document.createElement("button");
-  btn.textContent = "STREAK";
-  btn.dataset.page = "streakPage";
-  btn.onclick = () => showPage("streakPage");
-  nav.appendChild(btn);
-
-  const page = document.createElement("section");
-  page.id = "streakPage";
-  page.className = "page";
-
-  page.innerHTML = `
-    <div class="eyebrow">DAILY SYSTEM RECORD</div>
-    <h1>Login Streak</h1>
-    <p class="sub">Build consistency one day at a time.</p>
-    <div class="card">
-      <div class="tag">ACTIVE DAYS</div>
-      <h1 id="streakTotal" style="color:var(--green);font-size:45px">0</h1>
-      <p class="sub">Days you've checked in.</p>
-    </div>
-    <div class="card">
-      <h2>📅 Recent Activity</h2>
-      <div id="streakCalendar"></div>
-    </div>
-  `;
-
-  document.querySelector("main").insertBefore(
-    page, document.querySelector("footer")
-  );
-
-  renderStreakPage();
-}
-
-function renderStreakPage() {
-  if (!document.getElementById("streakPage")) return;
-
-  document.getElementById("streakTotal").textContent =
-    data.days.length;
-
-  const dates = [];
-  for (let i = 6; i >= 0; i--) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
-    const key = d.getFullYear() + "-" +
-      String(d.getMonth()+1).padStart(2,"0") + "-" +
-      String(d.getDate()).padStart(2,"0");
-
-    dates.push({
-      key,
-      label: d.toLocaleDateString("en", {weekday:"short"}),
-      active: data.days.includes(key)
-    });
-  }
-
-  document.getElementById("streakCalendar").innerHTML =
-    dates.map(d => `
-      <div class="row" style="padding:13px 0;border-bottom:1px solid var(--line)">
-        <b>${d.label}</b>
-        <span class="tag">${d.key}</span>
-        <span style="color:${d.active?"var(--green)":"var(--muted)"}">
-          ${d.active?"✓ ACTIVE":"○"}
-        </span>
-      </div>
-    `).join("");
-}
-
-addStreakPage();
-
-  
-function addWeeklyPage() {
-  const nav = document.getElementById("navigation");
-  if (document.getElementById("weeklyPage")) return;
-
-  const btn = document.createElement("button");
-  btn.textContent = "WEEKLY";
-  btn.dataset.page = "weeklyPage";
-  btn.onclick = () => showPage("weeklyPage");
-  nav.appendChild(btn);
-
-  const page = document.createElement("section");
-  page.id = "weeklyPage";
-  page.className = "page";
-
-  page.innerHTML = `
-    <div class="eyebrow">WEEKLY SYSTEM MISSIONS</div>
-    <h1>Weekly Challenges</h1>
-    <p class="sub">Small, achievable goals. Progress at your own pace.</p>
-    <div class="card">
-      <div class="row">
-        <h2>Weekly Progress</h2>
-        <span class="tag" id="weeklyCount">0 / 4</span>
-      </div>
-      <div class="bar"><div class="fill" id="weeklyBar"></div></div>
-      <p class="note" id="weeklyXP">Complete challenges to earn bonus XP.</p>
-    </div>
-    <div class="card">
-      <h2>🎯 This Week's Challenges</h2>
-      <div id="weeklyList"></div>
-    </div>
-    <p class="note">Challenges are optional. Rest days count as part of a balanced routine.</p>
-  `;
-
-  document.querySelector("main").insertBefore(
-    page, document.querySelector("footer")
-  );
-
-  renderWeeklyPage();
-}
-
-const weeklyChallenges = [
-  ["Enjoy 3 movement sessions", "Complete three comfortable activity sessions."],
-  ["Take 3 relaxing walks", "Enjoy three walks at your own pace."],
-  ["Make time for recovery", "Include two days of rest or gentle mobility."],
-  ["Build a sleep routine", "Aim for consistent, sufficient sleep this week."]
+const weeklyChallenges=[
+["Enjoy 3 movement sessions","Complete three comfortable activity sessions."],
+["Take 3 relaxing walks","Enjoy three walks at your own pace."],
+["Make time for recovery","Include two days of rest or gentle mobility."],
+["Build a sleep routine","Aim for consistent, sufficient sleep this week."]
 ];
-
-function getWeekKey() {
-  const d = new Date();
-  const start = new Date(d.getFullYear(),0,1);
-  const week = Math.ceil((((d-start)/86400000)+start.getDay()+1)/7);
-  return d.getFullYear()+"-W"+week;
+function getWeekKey(){const d=new Date(),s=new Date(d.getFullYear(),0,1),w=Math.ceil((((d-s)/86400000)+s.getDay()+1)/7);return d.getFullYear()+"-W"+w}
+function getWeeklyData(){
+let s={};try{s=JSON.parse(localStorage.getItem("soloWeekly")||"{}")||{}}catch(e){}
+const k=getWeekKey();if(s.week!==k)s={week:k,done:[],bonus:false};if(!Array.isArray(s.done))s.done=[];return s
+}
+function saveWeeklyData(s){localStorage.setItem("soloWeekly",JSON.stringify(s))}
+function toggleWeekly(i,on){
+const s=getWeeklyData();if(on&&!s.done.includes(i))s.done.push(i);else if(!on)s.done=s.done.filter(x=>x!==i);
+if(s.done.length===4&&!s.bonus){s.bonus=true;saveWeeklyData(s);awardXP(40,"Weekly challenge bonus");celebrate("WEEKLY COMPLETE","All four weekly challenges completed! +40 XP","🏆","WEEKLY REWARD")}
+else saveWeeklyData(s);renderWeeklyPage()
+}
+function renderWeeklyPage(){
+const s=getWeeklyData(),n=s.done.length;
+document.getElementById("weeklyCount").textContent=n+" / 4";
+document.getElementById("weeklyBar").style.width=(n/4*100)+"%";
+document.getElementById("weeklyXP").textContent=s.bonus?"40 XP bonus claimed!":"Complete all four for a 40 XP bonus.";
+document.getElementById("weeklyList").innerHTML=weeklyChallenges.map((x,i)=>`<div class="quest"><input type="checkbox" id="week${i}" ${s.done.includes(i)?"checked":""} onchange="toggleWeekly(${i},this.checked)"><label for="week${i}"><b>${x[0]}</b><br><span class="note">${x[1]}</span></label></div>`).join("")
+}
+function renderDashboard(){
+document.getElementById("dashXP").textContent=data.xp;document.getElementById("dashLevel").textContent=level();
+document.getElementById("dashQuests").textContent=data.done.length;
+document.getElementById("dashAchievements").textContent=data.unlocked.length;
+document.getElementById("dashDays").textContent=data.days.length;document.getElementById("dashRank").textContent=rankName();
+const a=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");a.push({label:d.toLocaleDateString("en",{weekday:"short"}),active:data.days.includes(k)})}
+document.getElementById("activityChart").innerHTML=a.map(d=>`<div class="chart-col"><div class="chart-track"><div class="chart-bar" style="height:${d.active?100:8}px;background:${d.active?"var(--green)":"#29372e"}"></div></div><small class="note">${d.label}</small></div>`).join("")
 }
 
-function getWeeklyData() {
-  const key = getWeekKey();
-  let saved = {};
-  try {
-    saved = JSON.parse(localStorage.getItem("soloWeekly") || "{}") || {};
-  } catch(e) {}
-  if (saved.week !== key) saved = {week:key,done:[],bonus:false};
-  return saved;
-}
-
-function saveWeeklyData(saved) {
-  localStorage.setItem("soloWeekly",JSON.stringify(saved));
-}
-
-function toggleWeekly(index,checked) {
-  const saved = getWeeklyData();
-  if (checked && !saved.done.includes(index)) {
-    saved.done.push(index);
-  } else if (!checked) {
-    saved.done = saved.done.filter(i=>i!==index);
-  }
-
-  if (saved.done.length === 4 && !saved.bonus) {
-    saved.bonus = true;
-    awardXP(40,"Weekly challenge bonus");
-    celebrate("WEEKLY COMPLETE","All four weekly challenges completed! +40 XP","🏆","WEEKLY REWARD");
-  }
-
-  saveWeeklyData(saved);
-  renderWeeklyPage();
-}
-
-function renderWeeklyPage() {
-  if (!document.getElementById("weeklyPage")) return;
-
-  const saved = getWeeklyData();
-  const count = saved.done.length;
-
-  document.getElementById("weeklyCount").textContent = count+" / 4";
-  document.getElementById("weeklyBar").style.width = (count/4*100)+"%";
-  document.getElementById("weeklyXP").textContent =
-    saved.bonus ? "40 XP bonus claimed!" : "Complete all four for a 40 XP bonus.";
-
-  document.getElementById("weeklyList").innerHTML =
-    weeklyChallenges.map((item,i)=>`
-      <div class="quest">
-        <input type="checkbox" id="week${i}"
-          ${saved.done.includes(i)?"checked":""}
-          onchange="toggleWeekly(${i},this.checked)">
-        <label for="week${i}">
-          <b>${item[0]}</b><br>
-          <span class="note">${item[1]}</span>
-        </label>
-      </div>
-    `).join("");
-}
-
-addWeeklyPage();
-
-  
-function addDashboardPage() {
-  const nav = document.getElementById("navigation");
-  if (document.getElementById("dashboardPage")) return;
-
-  const btn = document.createElement("button");
-  btn.textContent = "DASHBOARD";
-  btn.dataset.page = "dashboardPage";
-  btn.onclick = () => showPage("dashboardPage");
-  nav.appendChild(btn);
-
-  const page = document.createElement("section");
-  page.id = "dashboardPage";
-  page.className = "page";
-
-  page.innerHTML = `
-    <div class="eyebrow">HUNTER ANALYTICS</div>
-    <h1>Hunter Dashboard</h1>
-    <p class="sub">Your journey, measured over time.</p>
-
-    <div class="card">
-      <h2>📊 Overall Statistics</h2>
-      <div class="statgrid">
-        <div class="stat"><strong id="dashXP">0</strong><small>TOTAL XP</small></div>
-        <div class="stat"><strong id="dashLevel">1</strong><small>LEVEL</small></div>
-        <div class="stat"><strong id="dashQuests">0</strong><small>QUESTS DONE</small></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>⚔️ Weekly Activity</h2>
-      <div id="activityChart" style="display:flex;align-items:end;justify-content:space-around;height:150px;gap:9px;margin-top:20px"></div>
-      <p class="note">Your recorded active days over the last seven days.</p>
-    </div>
-
-    <div class="card">
-      <h2>🏆 Achievements</h2>
-      <div class="statgrid">
-        <div class="stat"><strong id="dashAchievements">0</strong><small>UNLOCKED</small></div>
-        <div class="stat"><strong id="dashDays">0</strong><small>ACTIVE DAYS</small></div>
-        <div class="stat"><strong id="dashRank">E</strong><small>HUNTER RANK</small></div>
-      </div>
-    </div>
-  `;
-
-  document.querySelector("main").insertBefore(
-    page, document.querySelector("footer")
-  );
-
-  renderDashboard();
-}
-
-function renderDashboard() {
-  if (!document.getElementById("dashboardPage")) return;
-
-  document.getElementById("dashXP").textContent = data.xp;
-  document.getElementById("dashLevel").textContent = level();
-  document.getElementById("dashQuests").textContent =
-    data.days.reduce((sum,day)=>sum,0) >= 0
-      ? data.notifications.filter(n=>n.message.includes("Quest completed")).length
-      : 0;
-
-  document.getElementById("dashAchievements").textContent =
-    data.unlocked.length;
-  document.getElementById("dashDays").textContent =
-    data.days.length;
-  document.getElementById("dashRank").textContent =
-    rankName();
-
-  const days = [];
-  for(let i=6;i>=0;i--){
-    const d=new Date();
-    d.setDate(d.getDate()-i);
-    const key=d.getFullYear()+"-"+
-      String(d.getMonth()+1).padStart(2,"0")+"-"+
-      String(d.getDate()).padStart(2,"0");
-
-    days.push({
-      label:d.toLocaleDateString("en",{weekday:"short"}),
-      active:data.days.includes(key)
-    });
-  }
-
-  document.getElementById("activityChart").innerHTML =
-    days.map(d=>`
-      <div style="flex:1;text-align:center">
-        <div style="height:105px;display:flex;align-items:end">
-          <div style="width:100%;height:${d.active?100:8}px;
-            background:${d.active?"var(--green)":"#29372e"};
-            border-radius:7px 7px 2px 2px"></div>
-        </div>
-        <small class="note">${d.label}</small>
-      </div>
-    `).join("");
-}
-
-addDashboardPage();
-
-
-
+checkDay();addRankPage();render();showPage("home");
+if("serviceWorker"in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(e=>console.log(e)))}
 </script>
 </body>
 </html>
