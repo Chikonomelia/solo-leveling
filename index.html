@@ -504,6 +504,109 @@ if("serviceWorker" in navigator){
     navigator.serviceWorker.register("./sw.js").catch(err=>console.log(err));
   });
 }
+  
+function addRankPage() {
+  const nav = document.getElementById("navigation");
+  if (document.getElementById("rankPage")) return;
+
+  const button = document.createElement("button");
+  button.textContent = "RANKS";
+  button.dataset.page = "rankPage";
+  button.onclick = () => showPage("rankPage");
+  nav.appendChild(button);
+
+  const page = document.createElement("section");
+  page.id = "rankPage";
+  page.className = "page";
+
+  const ranks = [
+    ["E","E-RANK","Level 1","⚔️"],
+    ["D","D-RANK","Level 3","🛡️"],
+    ["C","C-RANK","Level 7","🔥"],
+    ["B","B-RANK","Level 12","💎"],
+    ["A","A-RANK","Level 20","👑"],
+    ["S","S-RANK","Level 30","🌟"]
+  ];
+
+  page.innerHTML = `
+    <div class="eyebrow">HUNTER CLASSIFICATION</div>
+    <h1>Hunter Ranks</h1>
+    <p class="sub">Rise through the ranks and unlock your potential.</p>
+    <div class="card">
+      <div class="tag">CURRENT HUNTER RANK</div>
+      <h1 id="currentHunterRank" style="color:var(--green);font-size:42px">E-RANK</h1>
+      <p class="sub" id="rankProgressText"></p>
+      <div class="bar"><div class="fill" id="rankProgressBar"></div></div>
+    </div>
+    <div id="rankCards"></div>
+  `;
+
+  document.querySelector("main").insertBefore(
+    page,
+    document.querySelector("footer")
+  );
+
+  document.getElementById("rankCards").innerHTML =
+    ranks.map(r => {
+      const required = Number(r[2].replace("Level ",""));
+      return `
+        <div class="card" id="rank-${r[0]}">
+          <div class="row">
+            <div>
+              <div style="font-size:27px">${r[3]}</div>
+              <h2>${r[1]}</h2>
+              <p class="note">Unlock at ${r[2]}</p>
+            </div>
+            <span class="tag" id="rankStatus-${r[0]}"></span>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+  updateRankPage();
+}
+
+function updateRankPage() {
+  if (!document.getElementById("rankPage")) return;
+
+  const levels = [1,3,7,12,20,30];
+  const names = ["E","D","C","B","A","S"];
+  const current = level();
+  const index = names.indexOf(rankName());
+  const nextLevel = levels[index + 1];
+
+  document.getElementById("currentHunterRank").textContent =
+    rankName() + "-RANK";
+
+  document.getElementById("rankProgressText").textContent =
+    nextLevel
+      ? "Level " + current + " · Next rank at Level " + nextLevel
+      : "You have reached the highest hunter rank!";
+
+  const progress = nextLevel
+    ? Math.min(100,((current-levels[index])/(nextLevel-levels[index]))*100)
+    : 100;
+
+  document.getElementById("rankProgressBar").style.width =
+    progress + "%";
+
+  names.forEach((name,i) => {
+    const unlocked = current >= levels[i];
+    const card = document.getElementById("rank-"+name);
+    const status = document.getElementById("rankStatus-"+name);
+
+    status.textContent = unlocked
+      ? (name === rankName() ? "★ CURRENT RANK" : "✓ UNLOCKED")
+      : "🔒 LOCKED";
+
+    card.style.borderColor =
+      name === rankName() ? "var(--green)" : "var(--line)";
+    card.style.opacity = unlocked ? "1" : "0.5";
+  });
+}
+
+addRankPage();
+
 </script>
 </body>
 </html>
