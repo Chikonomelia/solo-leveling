@@ -47,7 +47,17 @@ button{background:var(--green);color:#071007;border:0;border-radius:10px;padding
 button.secondary{background:#1b2920;color:var(--green);border:1px solid #3d5943}
 button:disabled{opacity:.5}
 nav button{flex:0 0 auto;min-width:78px;padding:12px 10px;font-size:11px}
-nav button.selected{background:var(--green);color:#071007}
+nav button{
+  background:#1b2920;
+  color:var(--green);
+  border:1px solid #3d5943;
+}
+
+nav button.selected{
+  background:var(--green);
+  color:#071007;
+  border:1px solid var(--green);
+}
 .page{display:none}
 .page.active{display:block}
 .quest{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}
